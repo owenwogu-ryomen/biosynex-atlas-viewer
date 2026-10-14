@@ -18,7 +18,7 @@ export const devices: Device[] = [
     name: "MRI Scanner",
     category: "Imaging",
     summary: "Magnetic resonance imaging for detailed soft-tissue visualisation.",
-    embedUrl: "",
+    embedUrl: "https://www.example.com",
     workingPrinciples: [
       "A strong static magnetic field aligns hydrogen protons in the body.",
       "Radiofrequency pulses tip the protons; as they relax they emit signals.",
