@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/SiteShell";
+import { ViewerFrame } from "@/components/ViewerFrame";
 import { categories, devices, getDevice } from "@/data/equipment";
 
 export const Route = createFileRoute("/equipment/$slug")({
@@ -40,18 +41,13 @@ function DevicePage() {
         <section className="min-w-0">
           <p className="font-mono text-xs text-primary uppercase tracking-widest">{device.category}</p>
           <h1 className="font-display text-4xl mt-2">{device.name}</h1>
-          <div className="mt-6 aspect-[16/10] w-full rounded-xl border border-border bg-card overflow-hidden signal-grid relative">
-            {device.embedUrl ? (
-              <iframe src={device.embedUrl} title={`${device.name} 3D model`} className="absolute inset-0 h-full w-full border-0" allowFullScreen />
-            ) : device.embedHtml ? (
-              <div className="absolute inset-0 [&_iframe]:h-full [&_iframe]:w-full" dangerouslySetInnerHTML={{ __html: device.embedHtml }} />
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                <p className="font-display text-xl">3D viewer</p>
-                <p className="text-muted-foreground text-sm mt-2 max-w-sm">The 3D model for this device will appear here once its embed is added.</p>
-              </div>
-            )}
-          </div>
+          <ViewerFrame
+            title={device.name}
+            embedUrl={device.embedUrl}
+            embedHtml={device.embedHtml}
+            emptyTitle="3D viewer"
+            emptyBody="The 3D model for this device will appear here once its embed is added."
+          />
           <div className="mt-8 space-y-6">
             {device.descriptions.map((s) => (
               <article key={s.heading} className="rounded-xl border border-border bg-card p-6">
