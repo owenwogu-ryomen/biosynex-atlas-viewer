@@ -39,7 +39,7 @@ export const devices: Device[] = [
     name: "Mechanical Ventilator",
     category: "Life Support",
     summary: "Delivers controlled breaths to patients unable to breathe adequately.",
-    embedUrl: "",
+    embedUrl: "https://sketchfab.com/models/a03a99fab9314aab96fd41ec69acf1a3/embed?autospin=1&autostart=1&transparent=1",
     workingPrinciples: [
       "Generates positive pressure to push air/oxygen mixture into the lungs.",
       "Controls volume, pressure, rate and timing of each breath.",
