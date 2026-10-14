@@ -66,7 +66,7 @@ function DevicePage() {
           {[["Working Principles", device.workingPrinciples], ["Clinical Uses", device.clinicalUses]].map(([title, items], i) => (
             <details key={title as string} open={i === 0} className="group rounded-xl border border-border bg-card">
               <summary className="cursor-pointer list-none flex justify-between items-center p-4 font-display">
-                {title as string}<span className="text-primary transition-transform group-open:rotate-45">+</span>
+                {title as string}<span className="text-primary">+</span>
               </summary>
               <ul className="px-4 pb-4 space-y-2 text-sm text-muted-foreground">
                 {(items as string[]).map((t) => <li key={t} className="flex gap-2"><span className="text-primary">—</span>{t}</li>)}

@@ -38,7 +38,7 @@ function Index() {
         <p className="text-muted-foreground mt-2">Pick a device to open its 3D viewer and study notes.</p>
         <div className="grid md:grid-cols-3 gap-5 mt-8">
           {devices.map((d) => (
-            <Link key={d.slug} to="/equipment/$slug" params={{ slug: d.slug }} className="group rounded-xl border border-border bg-card p-6 hover:border-primary transition-colors">
+            <Link key={d.slug} to="/equipment/$slug" params={{ slug: d.slug }} className="group rounded-xl border border-border bg-card p-6 hover:border-primary">
               <p className="font-mono text-xs text-primary uppercase tracking-widest">{d.category}</p>
               <h3 className="font-display text-xl mt-3 group-hover:text-primary">{d.name}</h3>
               <p className="text-sm text-muted-foreground mt-2">{d.summary}</p>
