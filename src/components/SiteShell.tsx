@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b border-border bg-background/80 backdrop-blur sticky top-0 z-20">
+      <header className="border-b border-border bg-background sticky top-0 z-20">
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
           <Link to="/" className="font-display text-lg tracking-tight">
             <span className="text-primary">●</span> Biosynex <span className="text-muted-foreground">Signal Studio</span>
