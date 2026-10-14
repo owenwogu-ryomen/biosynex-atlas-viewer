@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 
 type ViewerFrameProps = {
   title: string;
-  embedUrl?: string;
-  embedHtml?: string;
-  emptyTitle?: string;
-  emptyBody?: string;
+  embedUrl?: string | undefined;
+  embedHtml?: string | undefined;
+  emptyTitle?: string | undefined;
+  emptyBody?: string | undefined;
 };
 
 // Wraps an embed in a container that can be expanded to true fullscreen
