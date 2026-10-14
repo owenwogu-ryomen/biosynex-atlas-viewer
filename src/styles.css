@@ -151,3 +151,12 @@
     linear-gradient(90deg, color-mix(in oklab, var(--primary) 6%, transparent) 1px, transparent 1px);
   background-size: 40px 40px, 40px 40px;
 }
+
+/* When the viewer goes fullscreen, it fills the whole screen */
+.viewer-frame:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+  border-radius: 0;
+  border: none;
+}
