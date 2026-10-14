@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // 👇 WE ADDED THIS BLOCK TO SEND THE BASE PATH SAFELY TO VITE WITHOUT BREAKING LOVABLE
+  vite: {
+    base: '/biosynex-atlas-viewer/',
+  },
+  nitro: {
+    preset: "static"
+  }
 });
