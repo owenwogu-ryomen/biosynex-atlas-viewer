@@ -50,6 +50,7 @@ export type Device = {
   clinicalUses: string[];
   components?: { name: string; detail: string }[];
   descriptions: { heading: string; body: string }[];
+  references?: { title: string; url: string; source?: string }[];
 };
 
 export const devices: Device[] = [
