@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteShell } from "@/components/SiteShell";
 import { ViewerFrame } from "@/components/ViewerFrame";
 import { categories, categoryInfo, devices, getDevice, resources } from "@/data/equipment";
+import ventilatorDiagram from "@/assets/ventilator-working-principle.svg.asset.json";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: ({ params }) => {
@@ -72,6 +73,12 @@ function DevicePage() {
             emptyTitle="3D viewer"
             emptyBody="The 3D model for this device will appear here once its embed is added."
           />
+          {device.slug === "mechanical-ventilator" && (
+            <figure className="mt-6 rounded-xl border border-border bg-card p-4">
+              <img src={ventilatorDiagram.url} alt="Medical ventilator working principle and gas flow diagram" className="w-full rounded-lg" />
+              <figcaption className="mt-3 text-sm text-muted-foreground">Working principle and gas flow pathway of the medical ventilator.</figcaption>
+            </figure>
+          )}
           <div className="mt-8 space-y-6">
             {device.descriptions.map((s) => (
               <article key={s.heading} className="rounded-xl border border-border bg-card p-6">
@@ -90,6 +97,21 @@ function DevicePage() {
                     </div>
                   ))}
                 </dl>
+              </article>
+            )}
+            {device.references && device.references.length > 0 && (
+              <article className="rounded-xl border border-border bg-card p-6">
+                <h2 className="font-display text-xl">References & Further Reading</h2>
+                <ul className="mt-3 divide-y divide-border">
+                  {device.references.map((r) => (
+                    <li key={r.url}>
+                      <a href={r.url} target="_blank" rel="noreferrer" className="flex items-center gap-4 py-3 hover:text-primary">
+                        <span className="flex-1 text-sm">{r.title}{r.source ? <span className="text-muted-foreground"> — {r.source}</span> : null}</span>
+                        <span aria-hidden>↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </article>
             )}
             {related.length > 0 && (
