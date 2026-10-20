@@ -1,0 +1,56 @@
+diff --git a/src/components/SiteShell.tsx b/src/components/SiteShell.tsx
+index 3598508..eda8556 100644
+--- a/src/components/SiteShell.tsx
++++ b/src/components/SiteShell.tsx
+@@ -17,12 +17,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
+       </header>
+       <main className="flex-1">{children}</main>
+       <footer className="border-t border-border mt-20">
+-        <div className="mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row justify-between gap-4">
+-          <div>
+-            <p className="font-display">For more information, contact us</p>
+-            <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
++        <div className="mx-auto max-w-7xl px-6 py-10">
++          <div className="flex flex-col md:flex-row justify-between gap-4">
++            <div>
++              <p className="font-display">For more information, contact us</p>
++              <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
++            </div>
++            <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
++          </div>
++          <div className="mt-8 border-t border-border pt-6 text-sm leading-relaxed text-muted-foreground">
++            <p>
++              <span className="font-display text-foreground">Educational use notice:</span> Biosynex Atlas is for
++              educational purposes only. It is not medical advice, a clinical guideline, or a substitute for
++              manufacturer instructions, institutional protocols, professional training, or qualified clinical
++              judgement. All resources used on this site are properly cited and credited to their respective owners
++              where they appear and in the references/resources sections. If you believe a source is missing or
++              incorrectly credited, please contact us.
++            </p>
+           </div>
+-          <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
+         </div>
+       </footer>
+     </div>
+diff --git a/src/routes/equipment.$slug.tsx b/src/routes/equipment.$slug.tsx
+index 7a23ff6..f073e40 100644
+--- a/src/routes/equipment.$slug.tsx
++++ b/src/routes/equipment.$slug.tsx
+@@ -137,6 +137,17 @@ function DevicePage() {
+                 </ul>
+               </article>
+             )}
++            <article className="rounded-xl border border-border bg-card p-6">
++              <h2 className="font-display text-xl">Educational Use &amp; Sources</h2>
++              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
++                This {device.name} page is for educational purposes only. It is not medical advice, a clinical
++                guideline, or an instruction to operate, service, diagnose, or treat with this equipment. Always
++                follow the manufacturer&apos;s instructions, your institution&apos;s protocols, and qualified
++                professional supervision. All resources used are properly cited and credited to their respective
++                owners where they appear on this page and in the references and further-study sections above.
++                External links belong to their respective owners, and linking to them does not imply endorsement.
++              </p>
++            </article>
+           </div>
+         </section>
+ 
