@@ -1,0 +1,641 @@
+diff --git a/src/assets/ventilator-working-principle.svg b/src/assets/ventilator-working-principle.svg
+new file mode 100644
+index 0000000..5b7a76e
+--- /dev/null
++++ b/src/assets/ventilator-working-principle.svg
+@@ -0,0 +1,270 @@
++<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 700" width="100%" height="100%" style="background-color: #0f172a; font-family: Verdana, 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;" role="img" aria-labelledby="svgTitle svgDesc">
++  <title id="svgTitle">Medical ventilator working principle and gas flow diagram</title>
++  <desc id="svgDesc">Step-by-step animated diagram: medical air and oxygen enter under pressure, are mixed to the prescribed oxygen percentage, controlled by a computer, warmed and moistened, delivered to the lungs, then leave through a germ filter and PEEP valve while sensors send feedback to the ventilator.</desc>
++  <defs>
++    <style>
++      .title { font-size: 23px; font-weight: 700; fill: #f8fafc; }
++      .subtitle { font-size: 13px; fill: #94a3b8; }
++      .node-title { font-size: 14px; font-weight: 600; fill: #f1f5f9; }
++      .node-sub { font-size: 11px; fill: #94a3b8; }
++      .label-text { font-size: 12.5px; font-weight: 600; fill: #e2e8f0; }
++      .card-title { font-size: 12px; font-weight: 600; fill: #f1f5f9; }
++      .card-text { font-size: 10.5px; fill: #a8b8cc; }
++      .step-num { font-size: 12px; font-weight: 700; fill: #0f172a; text-anchor: middle; }
++
++      /* Animated glowing flow lines: the moving dashes show direction of travel */
++      .flow-insp { stroke: #38bdf8; stroke-dasharray: 9 7; animation: flowAnimation 1.2s linear infinite; }
++      .flow-exp { stroke: #fb923c; stroke-dasharray: 9 7; animation: flowAnimation 1.2s linear infinite; }
++      .flow-signal { stroke: #c084fc; stroke-dasharray: 4 4; animation: flowAnimation 1.8s linear infinite; }
++      @keyframes flowAnimation { from { stroke-dashoffset: 32; } to { stroke-dashoffset: 0; } }
++
++      /* Gentle breathing motion for the lungs */
++      .lung-pulse { animation: lungBreathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
++      @keyframes lungBreathe { 0%, 100% { transform: scale(0.96); opacity: 0.85; } 50% { transform: scale(1.05); opacity: 1; } }
++
++      /* Soft pulsing glow on the numbered step badges, in sequence */
++      .badge { animation: badgePulse 3s ease-in-out infinite; }
++      @keyframes badgePulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
++
++      @media (prefers-reduced-motion: reduce) {
++        .flow-insp, .flow-exp, .flow-signal, .lung-pulse, .badge { animation: none; }
++      }
++    </style>
++
++    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
++      <stop offset="0%" stop-color="#0f172a" />
++      <stop offset="100%" stop-color="#1e293b" />
++    </linearGradient>
++    <linearGradient id="ventGrad" x1="0%" y1="0%" x2="100%" y2="100%">
++      <stop offset="0%" stop-color="#334155" />
++      <stop offset="100%" stop-color="#1e293b" />
++    </linearGradient>
++    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
++      <stop offset="0%" stop-color="#0284c7" />
++      <stop offset="100%" stop-color="#0369a1" />
++    </linearGradient>
++    <linearGradient id="humidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
++      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25" />
++      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.65" />
++    </linearGradient>
++
++    <filter id="glowBlue" x="-80%" y="-80%" width="260%" height="260%">
++      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.9" />
++    </filter>
++    <filter id="glowOrange" x="-80%" y="-80%" width="260%" height="260%">
++      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#fb923c" flood-opacity="0.9" />
++    </filter>
++    <filter id="glowPurple" x="-80%" y="-80%" width="260%" height="260%">
++      <feDropShadow dx="0" dy="0" stdDeviation="3" flood-color="#c084fc" flood-opacity="0.9" />
++    </filter>
++
++    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
++      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
++    </marker>
++    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
++      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fb923c" />
++    </marker>
++  </defs>
++
++  <!-- Background -->
++  <rect width="1000" height="700" fill="url(#bgGrad)" rx="16" />
++
++  <!-- Header -->
++  <g transform="translate(40, 45)">
++    <text class="title" x="0" y="0">Medical Ventilator: Working Principle &amp; Gas Workflow</text>
++    <text class="subtitle" x="0" y="22">How the machine breathes for a patient, step by step — follow the glowing lines</text>
++  </g>
++
++  <!-- Legend -->
++  <g transform="translate(706, 24)">
++    <line x1="0" y1="4" x2="34" y2="4" stroke="#38bdf8" stroke-width="4" />
++    <text class="node-sub" x="42" y="8">Fresh air in (inspiration)</text>
++    <line x1="0" y1="24" x2="34" y2="24" stroke="#fb923c" stroke-width="4" />
++    <text class="node-sub" x="42" y="28">Used air out, with CO₂ (expiration)</text>
++    <line x1="0" y1="44" x2="34" y2="44" stroke="#c084fc" stroke-width="3" stroke-dasharray="4 3" />
++    <text class="node-sub" x="42" y="48">Sensor messages to the computer</text>
++  </g>
++
++  <!-- 1. GAS SUPPLY & BLENDER SECTION -->
++  <g transform="translate(40, 110)">
++    <rect x="0" y="0" width="110" height="45" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
++    <text class="node-title" x="13" y="21" font-size="12.5">Medical Air</text>
++    <text class="node-sub" x="13" y="36">≈50 psi • 400 kPa</text>
++
++    <rect x="0" y="60" width="110" height="45" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
++    <text class="node-title" x="13" y="81" font-size="12.5">O₂ Supply</text>
++    <text class="node-sub" x="13" y="96">≈50 psi • 400 kPa</text>
++
++    <text class="node-sub" x="0" y="124" fill="#7dd3fc">From wall pipeline or cylinders,</text>
++    <text class="node-sub" x="0" y="139" fill="#7dd3fc">steadied by inlet regulators</text>
++
++    <!-- Blender -->
++    <rect x="150" y="15" width="110" height="75" rx="10" fill="url(#ventGrad)" stroke="#64748b" stroke-width="2"/>
++    <text class="node-title" x="162" y="40" font-size="13">Gas Blender</text>
++    <text class="node-sub" x="162" y="57">Electric valves</text>
++    <text class="node-sub" x="162" y="72">mix to set FiO₂</text>
++    <text class="node-sub" x="162" y="85" fill="#7dd3fc">21% – 100% O₂</text>
++
++    <path d="M 110 22 L 150 35" stroke="#38bdf8" stroke-width="2.5" fill="none" class="flow-insp"/>
++    <path d="M 110 82 L 150 70" stroke="#38bdf8" stroke-width="2.5" fill="none" class="flow-insp"/>
++  </g>
++
++  <!-- 2. MAIN VENTILATOR UNIT -->
++  <g transform="translate(320, 100)">
++    <rect x="0" y="0" width="220" height="240" rx="16" fill="url(#ventGrad)" stroke="#475569" stroke-width="2"/>
++    <rect x="15" y="15" width="190" height="85" rx="8" fill="url(#screenGrad)" stroke="#0284c7" stroke-width="1.5"/>
++
++    <text x="25" y="35" fill="#ffffff" font-size="11" font-weight="700">VENTILATOR MONITOR</text>
++    <path d="M 25 65 Q 40 45, 50 65 T 75 65 T 100 65" fill="none" stroke="#38bdf8" stroke-width="2"/>
++    <path d="M 25 82 Q 35 72, 45 82 T 65 82 T 100 82" fill="none" stroke="#4ade80" stroke-width="1.5"/>
++    <text x="118" y="48" fill="#fef08a" font-size="10.5" font-weight="700">Ppeak: 20 cmH₂O</text>
++    <text x="118" y="65" fill="#38bdf8" font-size="10.5" font-weight="700">V_T: 450 mL</text>
++    <text x="118" y="82" fill="#4ade80" font-size="10.5" font-weight="700">Rate: 12 /min</text>
++
++    <rect x="15" y="115" width="190" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
++    <text class="node-title" x="25" y="137" font-size="12.5">Computer &amp; Control Valves</text>
++    <text class="node-sub" x="25" y="157">• Breath size, flow &amp; pressure</text>
++    <text class="node-sub" x="25" y="173">• Volume or pressure mode</text>
++    <text class="node-sub" x="25" y="189">• Sensors: flow • pressure • FiO₂</text>
++    <text class="node-sub" x="25" y="205">• Safety alarms &amp; pressure limits</text>
++  </g>
++
++  <path d="M 300 162 L 320 162" stroke="#38bdf8" stroke-width="4" fill="none" class="flow-insp" filter="url(#glowBlue)"/>
++
++  <!-- 3. HUMIDIFIER -->
++  <g transform="translate(350, 390)">
++    <rect x="0" y="0" width="140" height="90" rx="12" fill="#1e293b" stroke="#0284c7" stroke-width="2"/>
++    <rect x="8" y="38" width="124" height="44" rx="6" fill="url(#humidGrad)"/>
++    <text class="node-title" x="12" y="24">Heated Humidifier</text>
++    <text class="node-sub" x="12" y="53" fill="#e0f2fe">Warms air to ≈37°C</text>
++    <text class="node-sub" x="12" y="67" fill="#e0f2fe">Adds moisture</text>
++    <text class="node-sub" x="12" y="79" fill="#e0f2fe">Protects the airway</text>
++  </g>
++
++  <!-- 4. PATIENT INTERFACE & LUNGS -->
++  <g transform="translate(730, 210)">
++    <rect x="0" y="0" width="220" height="260" rx="16" fill="#1e293b" stroke="#334155" stroke-width="2"/>
++    <text class="node-title" x="20" y="30">Patient Interface</text>
++    <text class="node-sub" x="20" y="46">Breathing tube / tracheostomy / mask</text>
++
++    <g class="lung-pulse" transform="translate(30, 36)">
++      <path d="M 80 30 L 80 65" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round" fill="none"/>
++      <path d="M 80 30 L 80 65" stroke="#0f172a" stroke-width="4" stroke-linecap="round" fill="none"/>
++      <path d="M 80 65 L 60 85 M 80 65 L 100 85" stroke="#cbd5e1" stroke-width="6" fill="none"/>
++      <path d="M 55 85 C 30 90, 20 130, 35 160 C 50 180, 70 170, 70 140 C 70 110, 65 90, 55 85 Z" fill="#f43f5e" fill-opacity="0.6" stroke="#f43f5e" stroke-width="2"/>
++      <path d="M 105 85 C 130 90, 140 130, 125 160 C 110 180, 90 170, 90 140 C 90 110, 95 90, 105 85 Z" fill="#f43f5e" fill-opacity="0.6" stroke="#f43f5e" stroke-width="2"/>
++    </g>
++
++    <text class="node-sub" x="20" y="234" fill="#cbd5e1" font-weight="600">O₂ into the blood • CO₂ out</text>
++    <text class="node-sub" x="20" y="250" fill="#cbd5e1" font-weight="600">Tiny air sacs (alveoli) inflate</text>
++  </g>
++
++  <!-- 5. FLOW PATHWAYS -->
++  <!-- INSPIRATORY: ventilator down to humidifier -->
++  <path d="M 420 340 L 420 390" stroke="#0284c7" stroke-width="7" fill="none"/>
++  <path id="inspDown" d="M 420 340 L 420 390" class="flow-insp" stroke-width="4" fill="none" marker-end="url(#arrow-blue)" filter="url(#glowBlue)"/>
++
++  <!-- INSPIRATORY LIMB (blue) -->
++  <path d="M 490 435 L 670 435 L 670 300 L 730 300" stroke="#0284c7" stroke-width="7" stroke-linejoin="round" fill="none"/>
++  <path id="inspMain" d="M 490 435 L 670 435 L 670 300 L 730 300" class="flow-insp" stroke-width="4" stroke-linejoin="round" fill="none" marker-end="url(#arrow-blue)" filter="url(#glowBlue)"/>
++  <text x="512" y="424" class="label-text" fill="#38bdf8">Inspiratory limb — breathing-in tube</text>
++
++  <!-- EXPIRATORY LIMB (orange) -->
++  <path d="M 730 260 L 630 260 L 630 200 L 540 200" stroke="#ea580c" stroke-width="7" stroke-linejoin="round" fill="none"/>
++  <path id="expMain" d="M 730 260 L 630 260 L 630 200 L 540 200" class="flow-exp" stroke-width="4" stroke-linejoin="round" fill="none" marker-end="url(#arrow-orange)" filter="url(#glowOrange)"/>
++  <text x="528" y="188" class="label-text" fill="#fb923c">Expiratory limb — breathing-out tube (CO₂)</text>
++
++  <!-- Germ filter, sitting on the expiratory line -->
++  <g transform="translate(630, 232)">
++    <rect x="-42" y="-14" width="84" height="28" rx="7" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
++    <text x="0" y="4" font-size="10" font-weight="700" fill="#fdba74" text-anchor="middle">Germ filter</text>
++  </g>
++
++  <!-- PEEP valve, sitting on the expiratory line by the ventilator -->
++  <g transform="translate(588, 200)">
++    <rect x="-45" y="-17" width="90" height="34" rx="7" fill="#1e293b" stroke="#f97316" stroke-width="1.5"/>
++    <text x="0" y="-1" font-size="10.5" font-weight="700" fill="#fb923c" text-anchor="middle">PEEP Valve</text>
++    <text x="0" y="11" font-size="9" fill="#94a3b8" text-anchor="middle">&amp; Exhaust</text>
++  </g>
++
++  <!-- SENSOR FEEDBACK (purple) -->
++  <path id="signalPath" d="M 700 300 L 700 360 L 480 360 L 480 340" class="flow-signal" stroke-width="2.5" fill="none"/>
++  <text x="528" y="352" class="node-sub" fill="#c084fc">Flow, pressure &amp; FiO₂ sensor feedback</text>
++
++  <!-- Travelling glowing dots show the direction of movement -->
++  <g fill="#bae6fd" filter="url(#glowBlue)">
++    <circle r="4.5"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
++    <circle r="4.5"><animateMotion dur="3s" begin="-1s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
++    <circle r="4.5"><animateMotion dur="3s" begin="-2s" repeatCount="indefinite"><mpath href="#inspMain" xlink:href="#inspMain"/></animateMotion></circle>
++    <circle r="3.5"><animateMotion dur="1.2s" repeatCount="indefinite"><mpath href="#inspDown" xlink:href="#inspDown"/></animateMotion></circle>
++  </g>
++  <g fill="#fed7aa" filter="url(#glowOrange)">
++    <circle r="4.5"><animateMotion dur="3.4s" repeatCount="indefinite"><mpath href="#expMain" xlink:href="#expMain"/></animateMotion></circle>
++    <circle r="4.5"><animateMotion dur="3.4s" begin="-1.7s" repeatCount="indefinite"><mpath href="#expMain" xlink:href="#expMain"/></animateMotion></circle>
++  </g>
++  <g fill="#e9d5ff" filter="url(#glowPurple)">
++    <circle r="3"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#signalPath" xlink:href="#signalPath"/></animateMotion></circle>
++    <circle r="3"><animateMotion dur="4s" begin="-2s" repeatCount="indefinite"><mpath href="#signalPath" xlink:href="#signalPath"/></animateMotion></circle>
++  </g>
++
++  <!-- Numbered step badges matching the cards below -->
++  <g class="badge"><circle cx="154" cy="116" r="11" fill="#38bdf8"/><text class="step-num" x="154" y="120">1</text></g>
++  <g class="badge" style="animation-delay:0.5s"><circle cx="304" cy="128" r="11" fill="#38bdf8"/><text class="step-num" x="304" y="132">2</text></g>
++  <g class="badge" style="animation-delay:1s"><circle cx="544" cy="106" r="11" fill="#38bdf8"/><text class="step-num" x="544" y="110">3</text></g>
++  <g class="badge" style="animation-delay:1.5s"><circle cx="494" cy="394" r="11" fill="#38bdf8"/><text class="step-num" x="494" y="398">4</text></g>
++  <g class="badge" style="animation-delay:2s"><circle cx="726" cy="214" r="11" fill="#38bdf8"/><text class="step-num" x="726" y="218">5</text></g>
++  <g class="badge" style="animation-delay:2.5s"><circle cx="588" cy="172" r="11" fill="#fb923c"/><text class="step-num" x="588" y="176">6</text></g>
++
++  <!-- 6. SIX STEPS IN PLAIN WORDS -->
++  <g transform="translate(40, 520)">
++    <rect x="0" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="18" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="18" y="26">1</text>
++    <text class="card-title" x="34" y="26">Gas enters</text>
++    <text class="card-text" x="11" y="47">Air &amp; oxygen arrive</text>
++    <text class="card-text" x="11" y="63">under pressure.</text>
++    <text class="card-text" x="11" y="79">Regulators steady</text>
++    <text class="card-text" x="11" y="95">the flow.</text>
++
++    <rect x="155" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="173" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="173" y="26">2</text>
++    <text class="card-title" x="189" y="26">Oxygen mixed</text>
++    <text class="card-text" x="166" y="47">Valves mix gases</text>
++    <text class="card-text" x="166" y="63">to set FiO₂, the</text>
++    <text class="card-text" x="166" y="79">oxygen % needed,</text>
++    <text class="card-text" x="166" y="95">21% up to 100%.</text>
++
++    <rect x="310" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="328" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="328" y="26">3</text>
++    <text class="card-title" x="344" y="26">Breath controlled</text>
++    <text class="card-text" x="321" y="47">The computer sets</text>
++    <text class="card-text" x="321" y="63">breath size, flow</text>
++    <text class="card-text" x="321" y="79">&amp; pressure for</text>
++    <text class="card-text" x="321" y="95">every breath.</text>
++
++    <rect x="464" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="482" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="482" y="26">4</text>
++    <text class="card-title" x="498" y="26">Warmed &amp; moist</text>
++    <text class="card-text" x="475" y="47">Gas is warmed to</text>
++    <text class="card-text" x="475" y="63">≈37°C and given</text>
++    <text class="card-text" x="475" y="79">moisture to guard</text>
++    <text class="card-text" x="475" y="95">the airway lining.</text>
++
++    <rect x="619" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="637" cy="22" r="10" fill="#38bdf8"/><text class="step-num" x="637" y="26">5</text>
++    <text class="card-title" x="653" y="26">Lungs fill</text>
++    <text class="card-text" x="630" y="47">Gentle pressure</text>
++    <text class="card-text" x="630" y="63">fills tiny air</text>
++    <text class="card-text" x="630" y="79">sacs (alveoli) so</text>
++    <text class="card-text" x="630" y="95">O₂ enters blood.</text>
++
++    <rect x="774" y="0" width="146" height="110" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
++    <circle cx="792" cy="22" r="10" fill="#fb923c"/><text class="step-num" x="792" y="26">6</text>
++    <text class="card-title" x="808" y="26">Used air leaves</text>
++    <text class="card-text" x="785" y="47">Lungs relax; air</text>
++    <text class="card-text" x="785" y="63">passes a germ</text>
++    <text class="card-text" x="785" y="79">filter. PEEP keeps</text>
++    <text class="card-text" x="785" y="95">sacs partly open.</text>
++  </g>
++
++  <text class="subtitle" x="500" y="668" text-anchor="middle">Simplified for learning — real ventilators vary by model and setting.</text>
++</svg>
+diff --git a/src/assets/ventilator-working-principle.svg.asset.json b/src/assets/ventilator-working-principle.svg.asset.json
+deleted file mode 100644
+index 309bd8b..0000000
+--- a/src/assets/ventilator-working-principle.svg.asset.json
++++ /dev/null
+@@ -1,11 +0,0 @@
+-{
+-  "version": 1,
+-  "asset_id": "04a96a81-61ee-46c0-a669-66487c2bcd97",
+-  "project_id": "2d57a9c0-1518-4b2c-bab4-7cd22ef1ac13",
+-  "url": "/__l5e/assets-v1/04a96a81-61ee-46c0-a669-66487c2bcd97/ventilator-working-principle.svg",
+-  "r2_key": "a/v1/2d57a9c0-1518-4b2c-bab4-7cd22ef1ac13/04a96a81-61ee-46c0-a669-66487c2bcd97/ventilator-working-principle.svg",
+-  "original_filename": "ventilator-working-principle.svg",
+-  "size": 12350,
+-  "content_type": "image/svg+xml",
+-  "created_at": "2026-10-19T00:47:29Z"
+-}
+diff --git a/src/components/ViewerFrame.tsx b/src/components/ViewerFrame.tsx
+index d144c53..e85e0ef 100644
+--- a/src/components/ViewerFrame.tsx
++++ b/src/components/ViewerFrame.tsx
+@@ -4,16 +4,33 @@ type ViewerFrameProps = {
+   title: string;
+   embedUrl?: string | undefined;
+   embedHtml?: string | undefined;
++  posterUrl?: string | undefined;
++  posterCredit?: string | undefined;
++  posterCreditUrl?: string | undefined;
+   emptyTitle?: string | undefined;
+   emptyBody?: string | undefined;
+ };
+ 
+-// Wraps an embed in a container that can be expanded to true fullscreen
+-// via the browser Fullscreen API (needed because Spline embeds have no
+-// fullscreen control of their own).
+-export function ViewerFrame({ title, embedUrl, embedHtml, emptyTitle = "3D viewer", emptyBody }: ViewerFrameProps) {
++// Click-to-load 3D viewer: shows a still poster image first, and only mounts
++// the (heavy, WebGL) embed iframe after the visitor presses "Load 3D model".
++// A fresh iframe is created on every load, so leaving and returning to the
++// page never tries to revive a stale WebGL session. The loaded view can be
++// expanded to true fullscreen via the browser Fullscreen API (needed because
++// some embeds have no fullscreen control of their own).
++export function ViewerFrame({
++  title,
++  embedUrl,
++  embedHtml,
++  posterUrl,
++  posterCredit,
++  posterCreditUrl,
++  emptyTitle = "3D viewer",
++  emptyBody,
++}: ViewerFrameProps) {
+   const frameRef = useRef<HTMLDivElement>(null);
+   const [isFullscreen, setIsFullscreen] = useState(false);
++  const [isLoaded, setIsLoaded] = useState(false);
++  const [loadCount, setLoadCount] = useState(0);
+ 
+   useEffect(() => {
+     const onChange = () => setIsFullscreen(document.fullscreenElement === frameRef.current);
+@@ -21,6 +38,11 @@ export function ViewerFrame({ title, embedUrl, embedHtml, emptyTitle = "3D viewe
+     return () => document.removeEventListener("fullscreenchange", onChange);
+   }, []);
+ 
++  // If the device changes, go back to the poster instead of keeping an old embed alive.
++  useEffect(() => {
++    setIsLoaded(false);
++  }, [embedUrl, embedHtml]);
++
+   const toggleFullscreen = () => {
+     if (!frameRef.current) return;
+     if (document.fullscreenElement) {
+@@ -30,6 +52,18 @@ export function ViewerFrame({ title, embedUrl, embedHtml, emptyTitle = "3D viewe
+     }
+   };
+ 
++  const openModel = () => {
++    setLoadCount((c) => c + 1);
++    setIsLoaded(true);
++  };
++
++  const closeModel = () => {
++    if (document.fullscreenElement) {
++      void document.exitFullscreen();
++    }
++    setIsLoaded(false);
++  };
++
+   const hasEmbed = Boolean(embedUrl || embedHtml);
+ 
+   return (
+@@ -37,26 +71,88 @@ export function ViewerFrame({ title, embedUrl, embedHtml, emptyTitle = "3D viewe
+       ref={frameRef}
+       className="viewer-frame relative aspect-[16/10] w-full rounded-xl border border-border bg-card overflow-hidden signal-grid"
+     >
+-      {embedUrl ? (
+-        <iframe src={embedUrl} title={`${title} 3D model`} className="absolute inset-0 h-full w-full border-0" allowFullScreen />
+-      ) : embedHtml ? (
+-        <div className="absolute inset-0 [&_iframe]:h-full [&_iframe]:w-full" dangerouslySetInnerHTML={{ __html: embedHtml }} />
+-      ) : (
++      {!hasEmbed ? (
+         <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+           <p className="font-display text-xl">{emptyTitle}</p>
+           {emptyBody ? <p className="text-muted-foreground text-sm mt-2 max-w-sm">{emptyBody}</p> : null}
+         </div>
++      ) : !isLoaded ? (
++        <>
++          {posterUrl ? (
++            <img
++              src={posterUrl}
++              alt={`${title} — 3D model preview`}
++              className="absolute inset-0 h-full w-full object-cover"
++              loading="lazy"
++            />
++          ) : null}
++          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
++          <div className="absolute inset-0 flex flex-col items-center justify-end text-center p-6 pb-10">
++            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/80">Interactive 3D</p>
++            <button
++              type="button"
++              onClick={openModel}
++              aria-label={`Load the interactive 3D model of ${title}`}
++              className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
++            >
++              <span aria-hidden>▶</span> Load 3D model
++            </button>
++            <p className="mt-3 max-w-md text-xs text-white/85">
++              The 3D model loads only when you ask for it, so the page stays fast. You can rotate and zoom it once it opens.
++            </p>
++          </div>
++          {posterCredit ? (
++            posterCreditUrl ? (
++              <a
++                href={posterCreditUrl}
++                target="_blank"
++                rel="noreferrer"
++                className="absolute bottom-2 left-3 z-10 text-[11px] text-white/75 hover:text-white hover:underline"
++              >
++                {posterCredit}
++              </a>
++            ) : (
++              <span className="absolute bottom-2 left-3 z-10 text-[11px] text-white/75">{posterCredit}</span>
++            )
++          ) : null}
++        </>
++      ) : embedUrl ? (
++        <iframe
++          key={`${embedUrl}#${loadCount}`}
++          src={embedUrl}
++          title={`${title} 3D model`}
++          className="absolute inset-0 h-full w-full border-0"
++          allow="autoplay; fullscreen; xr-spatial-tracking"
++          allowFullScreen
++        />
++      ) : (
++        <div
++          key={`embed-html#${loadCount}`}
++          className="absolute inset-0 [&_iframe]:h-full [&_iframe]:w-full"
++          dangerouslySetInnerHTML={{ __html: embedHtml ?? "" }}
++        />
+       )}
+-      {hasEmbed && (
+-        <button
+-          type="button"
+-          onClick={toggleFullscreen}
+-          aria-label={isFullscreen ? "Exit fullscreen" : "View fullscreen"}
+-          title={isFullscreen ? "Exit fullscreen" : "View fullscreen"}
+-          className="absolute bottom-3 right-3 z-10 flex items-center gap-2 rounded-md border border-border bg-card/95 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary"
+-        >
+-          {isFullscreen ? "Exit fullscreen" : "View fullscreen"}
+-        </button>
++      {hasEmbed && isLoaded && (
++        <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2">
++          <button
++            type="button"
++            onClick={closeModel}
++            aria-label="Close 3D model and return to the preview image"
++            title="Close 3D model"
++            className="flex items-center gap-2 rounded-md border border-border bg-card/95 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary"
++          >
++            Close 3D
++          </button>
++          <button
++            type="button"
++            onClick={toggleFullscreen}
++            aria-label={isFullscreen ? "Exit fullscreen" : "View fullscreen"}
++            title={isFullscreen ? "Exit fullscreen" : "View fullscreen"}
++            className="flex items-center gap-2 rounded-md border border-border bg-card/95 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary"
++          >
++            {isFullscreen ? "Exit fullscreen" : "View fullscreen"}
++          </button>
++        </div>
+       )}
+     </div>
+   );
+diff --git a/src/data/equipment.ts b/src/data/equipment.ts
+index 6cd03b3..edb9dba 100644
+--- a/src/data/equipment.ts
++++ b/src/data/equipment.ts
+@@ -46,6 +46,9 @@ export type Device = {
+   risk?: string;
+   embedUrl?: string;
+   embedHtml?: string;
++  posterUrl?: string;
++  posterCredit?: string;
++  posterCreditUrl?: string;
+   workingPrinciples: string[];
+   clinicalUses: string[];
+   components?: { name: string; detail: string }[];
+@@ -58,35 +61,35 @@ export const devices: Device[] = [
+     slug: "mri-scanner",
+     name: "MRI Scanner",
+     category: "Diagnostic Imaging",
+-    risk: "Medium to High (strong magnetic fields)",
+-    summary: "Magnetic resonance imaging for high-contrast soft-tissue images without ionising radiation.",
++    risk: "Medium to High — the magnet is very strong, so loose metal objects and some implants can be dangerous near it",
++    summary: "Uses a powerful magnet and radio waves to make detailed pictures of soft tissues — such as the brain, muscles, and organs — without X-ray radiation.",
+     embedUrl: "",
+     workingPrinciples: [
+-      "A strong static magnetic field (B0, typically 1.5 T or 3.0 T) aligns hydrogen protons, which precess at the Larmor frequency.",
+-      "An RF pulse tuned to the Larmor frequency tips the spins into the transverse plane (excitation).",
+-      "As protons relax they emit RF signals; contrast comes from proton density and T1/T2 relaxation times.",
+-      "Gradient coils encode position along X, Y and Z; signals are reconstructed with Fast Fourier Transforms.",
++      "A very strong magnet (called B0, usually 1.5 T or 3.0 T) lines up tiny hydrogen atoms in the body so they spin together. The speed of that spin is called the Larmor frequency.",
++      "A short radio-wave pulse, tuned to that exact spin speed, knocks the atoms sideways. This is called excitation.",
++      "As the atoms settle back, they give off faint radio signals. Different tissues settle at different speeds (called T1 and T2 times), and that difference creates the contrast in the picture.",
++      "Extra coils (gradient coils) change the magnetic field slightly along the X, Y, and Z directions, so the machine can pinpoint where each signal came from. A computer then builds the image using a maths method called the Fast Fourier Transform (FFT).",
+     ],
+     clinicalUses: [
+-      "Brain and spinal cord imaging",
+-      "Musculoskeletal and joint assessment",
+-      "Cardiac and abdominal evaluation",
++      "Scanning the brain and spinal cord",
++      "Checking muscles, bones, and joints",
++      "Examining the heart and the organs in the abdomen (belly)",
+     ],
+     components: [
+-      { name: "Main Superconducting Magnet", detail: "Niobium-titanium coils in liquid helium (~4.2 K) keep a homogeneous static field." },
+-      { name: "Gradient Coil Assembly", detail: "Three orthogonal coils for slice selection, phase and frequency encoding." },
+-      { name: "RF Coils", detail: "Antenna arrays that transmit B1 excitation pulses and capture weak echo signals." },
+-      { name: "Cryogenic Cooling System", detail: "Dewars, cold-heads and helium compressors that prevent magnet quenches." },
+-      { name: "Image Reconstruction Processor", detail: "Converts raw k-space data into 2D and 3D images using FFT." },
++      { name: "Main Superconducting Magnet", detail: "Coils of niobium-titanium wire kept extremely cold in liquid helium (about 4.2 K, roughly −269°C) so they carry electricity with no resistance and keep the magnetic field strong and steady." },
++      { name: "Gradient Coil Assembly", detail: "Three coils — for the X, Y, and Z directions — that pinpoint where each signal comes from: choosing the slice to image and encoding its position." },
++      { name: "RF Coils", detail: "Antennas placed close to the body. They send out the radio-wave pulses and listen for the faint signals (echoes) coming back." },
++      { name: "Cryogenic Cooling System", detail: "The cooling equipment — helium containers (dewars), cold-heads, and compressors — that keeps the magnet cold and prevents a sudden shutdown called a quench." },
++      { name: "Image Reconstruction Processor", detail: "The computer that turns the raw signal data (called k-space) into 2D and 3D pictures using FFT maths." },
+     ],
+     descriptions: [
+       {
+         heading: "Overview",
+-        body: "MRI relies on nuclear magnetic resonance to generate high-contrast images of soft tissue. The patient lies inside a high-strength static magnetic field, and radiofrequency pulses are used to excite and then listen to hydrogen protons in body tissue.",
++        body: "MRI uses a strong magnet and radio waves to make clear pictures of soft tissue — parts of the body such as the brain, muscles, and organs. The patient lies inside the magnet while radio-wave pulses nudge the hydrogen atoms in their body, and the machine listens to the tiny signals those atoms send back.",
+       },
+       {
+         heading: "Signal Path",
+-        body: "The magnet bore houses the superconducting coils. Inside sits the gradient coil assembly, and closest to the patient are the RF transmit/receive coils. Signals flow from the RF coils into low-noise pre-amplifiers, analog-to-digital converters, and finally the image reconstruction processor.",
++        body: "The round tunnel (bore) holds the superconducting magnet coils. Inside it sits the gradient coil assembly, and closest to the patient are the RF coils that send and receive signals. The signals pass through quiet amplifiers (pre-amplifiers), are converted into digital form, and finally reach the computer that builds the images.",
+       },
+     ],
+   },
+@@ -94,43 +97,46 @@ export const devices: Device[] = [
+     slug: "mechanical-ventilator",
+     name: "Mechanical Ventilator",
+     category: "Life Support & Critical Care",
+-    risk: "High / Life-Critical (associated with potential complications such as ventilator-associated pneumonia, barotrauma, pneumothorax, atelectasis, and vocal cord trauma)",
+-    summary: "An automated positive-pressure life support device designed to augment or substitute human respiratory muscles.",
++    risk: "High / Life-Critical — possible complications include lung infection linked to the breathing tube (ventilator-associated pneumonia), lung injury from pressure (barotrauma), air leaking around the lung (pneumothorax), partly collapsed lung areas (atelectasis), and vocal cord injury",
++    summary: "A life-support machine that breathes for a patient — or helps them breathe — when their own breathing muscles cannot do the job well enough.",
+     embedUrl: "https://sketchfab.com/models/a03a99fab9314aab96fd41ec69acf1a3/embed?autostart=1&camera=0&transparent=1&ui_hint=2",
++    posterUrl: "https://media.sketchfab.com/models/a03a99fab9314aab96fd41ec69acf1a3/thumbnails/7d41dcb8729948efa90df310c0b89466/9236e781776a484d89251fa08beee98e.jpeg",
++    posterCredit: "Medical Ventilator by lazarys on Sketchfab",
++    posterCreditUrl: "https://sketchfab.com/3d-models/medical-ventilator-a03a99fab9314aab96fd41ec69acf1a3",
+     workingPrinciples: [
+-      "Microprocessor-Controlled Pneumatics: Operates using closed-loop logic in either volume-controlled or pressure-controlled modes to manage air delivery.",
+-      "High-Pressure Metering: Pipeline gas (~50 psi / 400 kPa) passes through proportional solenoid valves that meter flow and blend precise oxygen ratios.",
+-      "Positive-Pressure Inflation: Forces oxygenated gas into the lungs to overcome thoracic resistance and expand collapsed alveoli.",
+-      "Passive Recoil & PEEP Retention: Exhaled gas returns via the expiratory limb where a PEEP valve maintains residual end-expiratory pressure to prevent lung sac collapse.",
++      "Computer-controlled breathing: A microprocessor (a small computer) uses sensor feedback to control every breath. It can deliver a set amount of air each time (volume-controlled) or a set pressure (pressure-controlled).",
++      "Measured gas supply: Medical air and oxygen arrive under pressure (about 50 psi / 400 kPa). Electric valves (proportional solenoid valves) measure the flow and mix the gases to give the exact oxygen percentage needed.",
++      "Gentle positive pressure: The machine pushes oxygen-rich gas into the lungs, helping to open the tiny air sacs (alveoli) so oxygen can pass into the blood.",
++      "Breathing out with PEEP: The lungs relax and used air flows back through the breathing-out tube (expiratory limb). A PEEP valve leaves a little pressure in the lungs at the end of the breath so the tiny air sacs do not completely collapse.",
+     ],
+     clinicalUses: [
+-      "Respiratory Failure Treatment: Deployed in critical conditions such as Acute Respiratory Distress Syndrome (ARDS), pneumonia, COPD exacerbations, asthma, stroke, sepsis, or traumatic brain injury where pulmonary oxygenation fails.",
+-      "Surgical Anesthesia Support: Takes over mechanical ventilation during surgical procedures when general anesthesia and neuromuscular blockade suppress natural breathing drives.",
+-      "Invasive vs. Non-Invasive Support: Administered non-invasively via face masks (e.g., CPAP/BiPAP) for lighter respiratory assistance or invasively via endotracheal intubation or tracheostomy for full life support.",
++      "When breathing fails: Supports patients whose lungs cannot take in enough oxygen — for example severe lung injury (ARDS), pneumonia, a flare-up of COPD, asthma attacks, stroke, sepsis (a life-threatening reaction to infection), or traumatic brain injury.",
++      "During surgery: Breathes for the patient while general anaesthesia and muscle-relaxing medicines temporarily stop their own breathing effort.",
++      "Two ways of giving support: Through a tight-fitting face mask (non-invasive, such as CPAP or BiPAP) for lighter help, or through a breathing tube placed in the windpipe — via the mouth (endotracheal tube) or the neck (tracheostomy) — for full life support.",
+     ],
+     components: [
+-      { name: "Pneumatic Gas Supply & Inlet Regulators", detail: "Accepts high-pressure medical air and pure oxygen lines (~50 psi / 400 kPa) and stabilizes incoming pressure before internal routing." },
+-      { name: "Gas Blender (Proportioning Valve Assembly)", detail: "Electromechanically mixes medical air and oxygen to deliver precise, tailored FiO2 concentrations (from 21% ambient to 100% pure oxygen)." },
+-      { name: "Microprocessor Unit & Solenoid Control Valves", detail: "Acts as the central command center, using proportional valves to regulate breath timing, inspiratory flow, and pressure limits." },
+-      { name: "Heated Humidifier & Conditioning System", detail: "Heats incoming dry gas to approximately 37°C and adds 100% relative humidity to prevent sore throats, thick secretions, and mucosal injury." },
+-      { name: "Patient Breathing Circuit (Inspiratory & Expiratory Limbs)", detail: "A flexible dual-tube corrugated system that isolates the sterile inspiratory pathway from the exhaled carbon dioxide return line." },
+-      { name: "Patient Interface (Breathing Tube / Mask)", detail: "Delivers pressurized gas directly into the trachea via an invasive endotracheal/tracheostomy tube or non-invasively via a tight-fitting facial mask." },
+-      { name: "Expiratory PEEP Valve & Pathogen Filter", detail: "Regulates exhalation resistance to maintain Positive End-Expiratory Pressure (PEEP) while trapping viral/bacterial aerosols to protect clinical personnel." },
+-      { name: "Inline Monitoring Sensors (Flow, Pressure, & FiO2)", detail: "Utilizes silicon wafer pressure transducers, hot-wire anemometers, and galvanic oxygen cells to transmit continuous, real-time feedback to the central computer." },
+-      { name: "Digital Display Monitor & Safety Alarms", detail: "Displays live pressure/volume waveforms and patient vitals while triggering visual/audible alarms for disconnects, pressure spikes, or power anomalies." },
++      { name: "Pneumatic Gas Supply & Inlet Regulators", detail: "Where medical air and pure oxygen enter under pressure (about 50 psi / 400 kPa). The regulators steady that pressure before the gas travels further inside." },
++      { name: "Gas Blender (Proportioning Valve Assembly)", detail: "Mixes medical air and oxygen to give the exact oxygen percentage prescribed — this percentage is called FiO2. It ranges from 21% (normal air) to 100% pure oxygen." },
++      { name: "Microprocessor Unit & Solenoid Control Valves", detail: "The machine's brain. It opens and closes the control valves to decide when each breath starts, how much air flows, and how much pressure is applied." },
++      { name: "Heated Humidifier & Conditioning System", detail: "Warms the dry gas to body temperature (about 37°C) and adds moisture (100% relative humidity), protecting the airway lining and preventing mucus from becoming thick and dry." },
++      { name: "Patient Breathing Circuit (Inspiratory & Expiratory Limbs)", detail: "Two flexible, ribbed (corrugated) tubes: one carries fresh gas to the patient (inspiratory limb), and the other carries used, carbon-dioxide-rich air away (expiratory limb)." },
++      { name: "Patient Interface (Breathing Tube / Mask)", detail: "The connection to the patient: either a breathing tube into the windpipe — through the mouth (endotracheal) or an opening in the neck (tracheostomy) — or a tight-fitting face mask." },
++      { name: "Expiratory PEEP Valve & Pathogen Filter", detail: "Controls how easily used air leaves, so a small pressure (PEEP) stays in the lungs to keep the air sacs partly open. The filter traps germs in the outgoing air to protect staff and others nearby." },
++      { name: "Inline Monitoring Sensors (Flow, Pressure, & FiO2)", detail: "Sensors constantly measure airflow, pressure, and oxygen level (FiO2) and send the readings to the computer, which fine-tunes each breath. They include pressure transducers, hot-wire flow sensors, and oxygen cells." },
++      { name: "Digital Display Monitor & Safety Alarms", detail: "The screen shows live breathing waveforms (pressure and volume graphs) and measurements. Alarms sound and flash if a tube disconnects, pressure rises too high, or power fails." },
+     ],
+     descriptions: [
+       {
+         heading: "Overview",
+-        body: "A mechanical ventilator is an automated positive-pressure life support device designed to augment or substitute human respiratory muscles when a patient is unable to maintain adequate independent gas exchange. Operating like controlled bellows, the machine supplies oxygen-rich air to saturate the blood while simultaneously clearing carbon dioxide waste from the body during severe respiratory failure or general surgical anesthesia.",
++        body: "A mechanical ventilator is a life-support machine that breathes for a patient — fully or partly — when they cannot breathe well enough on their own. It works like a carefully controlled bellows: it pushes oxygen-rich air into the lungs so oxygen can reach the blood, and it clears out carbon dioxide. It is used during severe breathing failure and during surgery under general anaesthesia.",
+       },
+       {
+-        heading: "Pneumatic Flow Pathway",
+-        body: "1. Gas Inflow & Pressure Regulation: High-pressure medical air and pure oxygen supplies (typically ~50 psi / 400 kPa) feed into pressure-reducing inlet regulators from wall pipelines or mini-compressors.\n2. Proportioning & Blending: The gases enter an internal gas blender where proportional solenoid valves adjust the mixture to deliver the precise prescribed fraction of inspired oxygen (FiO2, ranging from 21% to 100%).\n3. Inspiratory Flow Control: A microprocessor-driven inspiratory control valve meters tidal volume, gas flow rate, and peak airway pressure according to the set ventilation mode.\n4. Gas Conditioning: The gas stream flows through a heated humidifier, warming the air to body temperature (~37°C) and saturating it with moisture to protect sensitive bronchial mucosa.\n5. Inspiratory Delivery & Lung Inflation: Conditioned gas travels down the corrugated inspiratory limb and through an artificial airway (endotracheal tube, tracheostomy, or face mask) under positive pressure to inflate the pulmonary alveoli.\n6. Expiratory Return & PEEP: During passive exhalation, carbon dioxide-laden gas returns along the expiratory limb, passes through a protective bacterial/pathogen filter, and vents past a solenoid PEEP valve that maintains baseline airway pressure to prevent alveolar deflation.",
++        heading: "How the Air Travels (Gas Flow Pathway)",
++        body: "1. Gas enters: Medical air and pure oxygen arrive under pressure (about 50 psi / 400 kPa) from hospital wall pipelines or small compressors. Regulators at the inlet steady the pressure.\n2. Oxygen is mixed: Inside the gas blender, electric valves mix the air and oxygen to the exact percentage prescribed — called FiO2, from 21% (normal air) to 100% oxygen.\n3. The computer gives a breath: A microprocessor controls the inspiratory valve to deliver the set amount of air (tidal volume), speed of flow, and highest pressure for each breath.\n4. The air is warmed and moistened: The gas passes through a heated humidifier that brings it to body temperature (about 37°C) and adds moisture to protect the soft lining of the airway.\n5. The lungs fill: The warmed gas travels down the breathing-in tube (inspiratory limb) and through a face mask or breathing tube into the lungs, gently inflating the tiny air sacs (alveoli) where oxygen enters the blood.\n6. Used air leaves: The lungs relax and carbon-dioxide-rich air flows back through the breathing-out tube (expiratory limb), through a germ filter, and past the PEEP valve, which keeps a little pressure in the lungs so the air sacs do not collapse completely.",
+       },
+       {
+         heading: "Category Profile",
+-        body: "Primary Function: Continuous maintenance or artificial replacement of pulmonary gas exchange during organ failure or general surgery.\nRisk Level: High / Life-Critical (associated with potential complications such as ventilator-associated pneumonia, barotrauma, pneumothorax, atelectasis, and vocal cord trauma).\nRelated Devices: Anesthesia machines, CPAP/BiPAP non-invasive respirators, high-frequency jet ventilators, and Extracorporeal Membrane Oxygenation (ECMO) circuits.",
++        body: "Main job: To keep a patient breathing — taking in oxygen and removing carbon dioxide — when their lungs or breathing muscles cannot do it alone, during organ failure or surgery.\nRisk level: High / life-critical. Possible complications include lung infection linked to the breathing tube (ventilator-associated pneumonia), lung injury from pressure (barotrauma), air leaking around the lung (pneumothorax), partly collapsed lung areas (atelectasis), and vocal cord injury.\nRelated devices: Anaesthesia machines, CPAP/BiPAP mask respirators, high-frequency jet ventilators, and ECMO circuits (machines that add oxygen to the blood outside the body).",
+       },
+     ],
+     references: [
+diff --git a/src/routes/equipment.$slug.tsx b/src/routes/equipment.$slug.tsx
+index b9a3cb6..b4b1a08 100644
+--- a/src/routes/equipment.$slug.tsx
++++ b/src/routes/equipment.$slug.tsx
+@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+ import { SiteShell } from "@/components/SiteShell";
+ import { ViewerFrame } from "@/components/ViewerFrame";
+ import { categories, categoryInfo, devices, getDevice, resources } from "@/data/equipment";
+-import ventilatorDiagram from "@/assets/ventilator-working-principle.svg.asset.json";
++import ventilatorDiagramUrl from "@/assets/ventilator-working-principle.svg?url";
+ 
+ export const Route = createFileRoute("/equipment/$slug")({
+   loader: ({ params }) => {
+@@ -67,16 +67,20 @@ function DevicePage() {
+           <h1 className="font-display text-4xl mt-2">{device.name}</h1>
+           <p className="mt-2 text-muted-foreground">{device.summary}</p>
+           <ViewerFrame
++            key={device.slug}
+             title={device.name}
+             embedUrl={device.embedUrl}
+             embedHtml={device.embedHtml}
++            posterUrl={device.posterUrl}
++            posterCredit={device.posterCredit}
++            posterCreditUrl={device.posterCreditUrl}
+             emptyTitle="3D viewer"
+             emptyBody="The 3D model for this device will appear here once its embed is added."
+           />
+           {device.slug === "mechanical-ventilator" && (
+             <figure className="mt-6 rounded-xl border border-border bg-card p-4">
+-              <img src={ventilatorDiagram.url} alt="Medical ventilator working principle and gas flow diagram" className="w-full rounded-lg" />
+-              <figcaption className="mt-3 text-sm text-muted-foreground">Working principle and gas flow pathway of the medical ventilator.</figcaption>
++              <img src={ventilatorDiagramUrl} alt="Animated diagram showing how air travels through a medical ventilator, step by step" className="w-full rounded-lg" />
++              <figcaption className="mt-3 text-sm text-muted-foreground">How air travels through the ventilator, step by step. Blue = fresh air in, orange = used air out, purple = sensor messages back to the computer.</figcaption>
+             </figure>
+           )}
+           <div className="mt-8 space-y-6">
