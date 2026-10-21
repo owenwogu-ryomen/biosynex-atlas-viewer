@@ -1,0 +1,482 @@
+diff --git a/src/assets/mri-working-principle.svg b/src/assets/mri-working-principle.svg
+new file mode 100644
+index 0000000..fd7f45c
+--- /dev/null
++++ b/src/assets/mri-working-principle.svg
+@@ -0,0 +1,281 @@
++<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1400 980" width="100%" height="auto" style="background-color:#0b0f19;font-family:system-ui,-apple-system,'Segoe UI',sans-serif" role="img" aria-labelledby="mriSvgTitle mriSvgDesc">
++  <title id="mriSvgTitle">Animated MRI scanner hardware and working-principle diagram</title>
++  <desc id="mriSvgDesc">A detailed educational schematic showing the superconducting magnet, liquid-helium cryostat, shim and gradient coils, radiofrequency coils, patient at the scanner isocenter, the five steps from proton alignment to Fourier image reconstruction, and simplified MRI physics equations. Animated lines show cryogenic circulation, radiofrequency excitation, gradient encoding, returning tissue signals, and data flow.</desc>
++  <defs>
++    <linearGradient id="mriBg" x1="0%" y1="0%" x2="100%" y2="100%">
++      <stop offset="0%" stop-color="#0f172a"/><stop offset="55%" stop-color="#0b0f19"/><stop offset="100%" stop-color="#050811"/>
++    </linearGradient>
++    <linearGradient id="mriMagnet" x1="0%" y1="0%" x2="100%" y2="0%">
++      <stop offset="0%" stop-color="#1e293b"/><stop offset="30%" stop-color="#334155"/><stop offset="50%" stop-color="#475569"/><stop offset="70%" stop-color="#334155"/><stop offset="100%" stop-color="#1e293b"/>
++    </linearGradient>
++    <radialGradient id="mriIsoGlow" cx="50%" cy="50%" r="50%">
++      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.45"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
++    </radialGradient>
++    <filter id="mriGlow" x="-30%" y="-30%" width="160%" height="160%">
++      <feGaussianBlur stdDeviation="3.5" result="blur"/>
++      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
++    </filter>
++    <filter id="mriGlowCyan" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#38bdf8" flood-opacity="0.9"/></filter>
++    <filter id="mriGlowPink" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ec4899" flood-opacity="0.9"/></filter>
++    <filter id="mriGlowGold" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#f59e0b" flood-opacity="0.9"/></filter>
++    <marker id="mriArrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/></marker>
++    <marker id="mriArrowPink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#ec4899"/></marker>
++    <marker id="mriArrowGold" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b"/></marker>
++  </defs>
++  <style>
++    .mri-title{font-size:24px;font-weight:800;fill:#f8fafc;letter-spacing:.4px}
++    .mri-subtitle{font-size:13px;font-weight:500;fill:#94a3b8}
++    .mri-head{font-size:15px;font-weight:700;fill:#38bdf8;letter-spacing:.4px}
++    .mri-label{font-size:13px;font-weight:700;fill:#e2e8f0}
++    .mri-sub{font-size:11px;fill:#a8b8cc}
++    .mri-eng{font-size:11px;font-family:ui-monospace,monospace;fill:#a7f3d0}
++    .mri-math{font-family:ui-monospace,'Courier New',monospace;font-weight:700;fill:#fbbf24}
++    @keyframes mriDash{from{stroke-dashoffset:44}to{stroke-dashoffset:0}}
++    .mri-cryo{stroke:#38bdf8;stroke-width:3;stroke-dasharray:9 7;animation:mriDash 1.4s linear infinite}
++    .mri-rftx{stroke:#ec4899;stroke-width:3;stroke-dasharray:10 6;animation:mriDash 1.1s linear infinite}
++    .mri-rfrx{stroke:#f59e0b;stroke-width:3;stroke-dasharray:6 4;animation:mriDash .8s linear infinite}
++    .mri-grad{stroke:#10b981;stroke-width:3;stroke-dasharray:12 7;animation:mriDash 1.8s linear infinite}
++    .mri-data{stroke:#c084fc;stroke-width:3;stroke-dasharray:6 6;animation:mriDash 1s linear infinite}
++    .mri-spin{transform-box:fill-box;transform-origin:center;animation:mriSpin 3s linear infinite}
++    @keyframes mriSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
++    .mri-pulse{animation:mriPulse 2.4s ease-in-out infinite}
++    @keyframes mriPulse{0%,100%{opacity:.55}50%{opacity:1}}
++    .mri-hover{transition:all .25s ease}
++    .mri-hover:hover .mri-ring{stroke:#7dd3fc!important;filter:drop-shadow(0 0 8px #38bdf8)}
++    .mri-hover:hover .mri-card{fill:#243349!important;stroke:#38bdf8!important}
++    .mri-hover:hover .mri-label{fill:#fff!important}
++    @media (prefers-reduced-motion:reduce){.mri-cryo,.mri-rftx,.mri-rfrx,.mri-grad,.mri-data,.mri-spin,.mri-pulse{animation:none}}
++  </style>
++
++  <rect width="1400" height="980" fill="url(#mriBg)" rx="16"/>
++  <rect x="10" y="10" width="1380" height="960" fill="none" stroke="#1e293b" stroke-width="2" rx="12"/>
++
++  <g transform="translate(30,45)">
++    <text class="mri-title" x="0" y="0">MRI SCANNER: HARDWARE &amp; WORKING PRINCIPLES</text>
++    <text class="mri-subtitle" x="0" y="22">Plain-language journey with engineering detail — proton alignment, resonance, spatial encoding, relaxation, and reconstruction</text>
++    <g transform="translate(1050,-10)">
++      <rect x="0" y="0" width="270" height="36" rx="18" fill="#1e293b" stroke="#334155"/>
++      <circle cx="20" cy="18" r="6" fill="#10b981" filter="url(#mriGlow)"><animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/></circle>
++      <text x="34" y="22" font-size="11" fill="#e2e8f0" font-weight="600">Example B₀ field: 3.0 Tesla</text>
++    </g>
++  </g>
++
++  <!-- LEFT: HARDWARE CUTAWAY -->
++  <g transform="translate(30,95)">
++    <rect x="0" y="0" width="650" height="835" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
++    <text class="mri-head" x="20" y="30">1. SCANNER HARDWARE &amp; BORE CUTAWAY</text>
++    <text class="mri-sub" x="20" y="48">Layers around the patient and the magnet centre (isocenter)</text>
++
++    <g transform="translate(45,112)">
++      <rect x="0" y="0" width="560" height="420" rx="210" fill="url(#mriMagnet)" stroke="#475569" stroke-width="3"/>
++      <rect x="25" y="25" width="510" height="370" rx="185" fill="#0f172a" stroke="#334155" stroke-width="2"/>
++
++      <g class="mri-hover">
++        <rect x="40" y="40" width="480" height="340" rx="170" fill="none" stroke="#0284c7" stroke-width="18" opacity="0.85" class="mri-ring"/>
++        <path id="mriCryoLoop" d="M 50 210 a 230 160 0 1 1 460 0 a 230 160 0 1 1 -460 0" fill="none" class="mri-cryo"/>
++      </g>
++
++      <g class="mri-hover">
++        <rect x="65" y="65" width="430" height="290" rx="145" fill="none" stroke="#3b82f6" stroke-width="14" class="mri-ring"/>
++        <path d="M 170 -18 L 390 -18" stroke="#93c5fd" stroke-width="2.5" marker-end="url(#mriArrowCyan)"/>
++        <text x="280" y="-27" text-anchor="middle" font-size="12" font-weight="700" fill="#bfdbfe">B₀ main field direction</text>
++      </g>
++
++      <rect x="82" y="82" width="396" height="256" rx="128" fill="none" stroke="#f59e0b" stroke-width="5" stroke-dasharray="10 6" opacity="0.9"/>
++
++      <g class="mri-hover">
++        <rect x="94" y="94" width="372" height="232" rx="116" fill="none" stroke="#10b981" stroke-width="16" opacity="0.92" class="mri-ring"/>
++        <path id="mriGradX" d="M 112 210 L 448 210" class="mri-grad" fill="none"/>
++        <path id="mriGradY" d="M 280 112 L 280 308" class="mri-grad" fill="none"/>
++      </g>
++
++      <g class="mri-hover">
++        <rect x="118" y="118" width="324" height="184" rx="92" fill="none" stroke="#ec4899" stroke-width="10" class="mri-ring"/>
++      </g>
++
++      <rect x="135" y="135" width="290" height="150" rx="75" fill="#020617" stroke="#334155" stroke-width="2"/>
++      <circle cx="280" cy="210" r="72" fill="url(#mriIsoGlow)"/>
++
++      <!-- RF energy travelling inward -->
++      <path id="mriRfInL" d="M 150 210 C 185 178, 220 182, 250 198" fill="none" class="mri-rftx" marker-end="url(#mriArrowPink)"/>
++      <path id="mriRfInR" d="M 410 210 C 375 178, 340 182, 310 198" fill="none" class="mri-rftx" marker-end="url(#mriArrowPink)"/>
++
++      <g transform="translate(160,190)">
++        <rect x="0" y="30" width="240" height="12" rx="4" fill="#64748b" stroke="#94a3b8"/>
++        <rect x="20" y="42" width="200" height="8" fill="#334155"/>
++        <path d="M 30 26 Q 50 15 80 18 Q 120 22 160 20 Q 200 18 220 28 L 220 30 L 30 30 Z" fill="#38bdf8" fill-opacity="0.6" stroke="#0284c7"/>
++        <circle cx="42" cy="18" r="10" fill="#38bdf8" fill-opacity="0.85"/>
++        <path d="M 30 6 C 45 -5 60 -5 75 6" fill="none" stroke="#f59e0b" stroke-width="4" filter="url(#mriGlow)"/>
++        <text x="2" y="-10" font-size="10" font-weight="700" fill="#fbbf24">Receive coil</text>
++      </g>
++
++      <!-- Tissue signal travelling outward and downward -->
++      <path id="mriSignalOut" d="M 238 230 C 205 255, 190 285, 205 325 C 218 360, 260 380, 320 392" fill="none" class="mri-rfrx" marker-end="url(#mriArrowGold)"/>
++
++      <g transform="translate(280,175)">
++        <circle cx="0" cy="0" r="29" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#mriGlow)"/>
++        <g class="mri-spin">
++          <ellipse cx="0" cy="0" rx="21" ry="7" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 2"/>
++          <circle cx="21" cy="0" r="3" fill="#fbbf24"/>
++        </g>
++        <circle cx="0" cy="0" r="10" fill="#ef4444"/>
++        <text x="-4" y="4" font-size="11" font-weight="bold" fill="#fff">+</text>
++        <path d="M 0 0 L 0 -20" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#mriArrowGold)"/>
++        <text x="35" y="-12" font-size="10" font-weight="700" fill="#7dd3fc">¹H proton</text>
++        <text x="35" y="1" font-size="9" fill="#94a3b8">precessing spin</text>
++      </g>
++
++      <g fill="#bae6fd" filter="url(#mriGlowCyan)">
++        <circle cx="50" cy="210" r="4"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#mriCryoLoop" xlink:href="#mriCryoLoop"/></animateMotion></circle>
++        <circle cx="510" cy="210" r="4"><animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite"><mpath href="#mriCryoLoop" xlink:href="#mriCryoLoop"/></animateMotion></circle>
++      </g>
++      <g fill="#fbcfe8" filter="url(#mriGlowPink)">
++        <circle cx="150" cy="210" r="3.5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#mriRfInL" xlink:href="#mriRfInL"/></animateMotion></circle>
++        <circle cx="410" cy="210" r="3.5"><animateMotion dur="1.8s" repeatCount="indefinite"><mpath href="#mriRfInR" xlink:href="#mriRfInR"/></animateMotion></circle>
++      </g>
++      <g fill="#fde68a" filter="url(#mriGlowGold)">
++        <circle cx="238" cy="230" r="3.5"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#mriSignalOut" xlink:href="#mriSignalOut"/></animateMotion></circle>
++      </g>
++      <text x="280" y="438" text-anchor="middle" class="mri-sub">Outer → inner: cryostat • superconducting magnet • shims • gradients • RF body coil • bore</text>
++    </g>
++
++    <g transform="translate(20,558)">
++      <g class="mri-hover">
++        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++        <rect x="10" y="12" width="6" height="68" rx="3" fill="#0284c7"/>
++        <text class="mri-label" x="24" y="28">1. Superconducting Magnet (B₀)</text>
++        <text class="mri-sub" x="24" y="46">• NbTi coils in liquid helium (4 K)</text>
++        <text class="mri-sub" x="24" y="62">• Common fields: 1.5 T or 3 T; always on</text>
++        <text class="mri-eng" x="24" y="79">Role: aligns spins; sets f₀</text>
++      </g>
++      <g transform="translate(310,0)" class="mri-hover">
++        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++        <rect x="10" y="12" width="6" height="68" rx="3" fill="#10b981"/>
++        <text class="mri-label" x="24" y="28">2. Gradient Coils (Gx, Gy, Gz)</text>
++        <text class="mri-sub" x="24" y="46">• Three rapidly switched electromagnet sets</text>
++        <text class="mri-sub" x="24" y="62">• Fast switching causes knocking sounds</text>
++        <text class="mri-eng" x="24" y="79">Role: codes X/Y/Z position</text>
++      </g>
++      <g transform="translate(0,102)" class="mri-hover">
++        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++        <rect x="10" y="12" width="6" height="68" rx="3" fill="#ec4899"/>
++        <text class="mri-label" x="24" y="28">3. RF Transmit &amp; Receive Coils</text>
++        <text class="mri-sub" x="24" y="46">• Transmit coil sends B₁ radio pulses</text>
++        <text class="mri-sub" x="24" y="62">• Close receive coils capture faint echoes</text>
++        <text class="mri-eng" x="24" y="79">Role: pulse in; echo out</text>
++      </g>
++      <g transform="translate(310,102)" class="mri-hover">
++        <rect x="0" y="0" width="290" height="92" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++        <rect x="10" y="12" width="6" height="68" rx="3" fill="#f59e0b"/>
++        <text class="mri-label" x="24" y="28">4. Cryogenics, Shims &amp; Shielding</text>
++        <text class="mri-sub" x="24" y="46">• Coldhead/compressor limits helium loss</text>
++        <text class="mri-sub" x="24" y="62">• Shims + room shield cut radio noise</text>
++        <text class="mri-eng" x="24" y="79">Role: stable, smooth field</text>
++      </g>
++      <g transform="translate(0,204)">
++        <rect x="0" y="0" width="600" height="34" rx="7" fill="#020617" stroke="#1e293b"/>
++        <text x="14" y="21" font-size="10" font-weight="700" fill="#64748b">SIGNAL PATH:</text>
++        <text x="105" y="21" font-size="10" fill="#38bdf8">helium cooling</text>
++        <text x="205" y="21" font-size="10" fill="#10b981">gradient drive</text>
++        <text x="310" y="21" font-size="10" fill="#f472b6">RF pulse in</text>
++        <text x="405" y="21" font-size="10" fill="#fbbf24">tissue echo out</text>
++        <text x="515" y="21" font-size="10" fill="#c084fc">k-space data</text>
++      </g>
++      <text x="10" y="268" font-size="11" fill="#fca5a5" font-weight="700">Safety: magnet stays ON — screening is essential.</text>
++    </g>
++  </g>
++
++  <!-- RIGHT TOP: FIVE PHYSICS STEPS -->
++  <g transform="translate(700,95)">
++    <rect x="0" y="0" width="670" height="520" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
++    <text class="mri-head" x="20" y="30">2. WORKING PRINCIPLE: FIVE PHYSICS STEPS</text>
++    <text class="mri-sub" x="20" y="48">Repeated many times with different gradient settings to build each slice or 3D volume</text>
++    <path id="mriSequence" d="M 50 105 L 50 465" class="mri-data" fill="none"/>
++    <circle cx="50" cy="105" r="4" fill="#e9d5ff"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#mriSequence" xlink:href="#mriSequence"/></animateMotion></circle>
++
++    <g transform="translate(20,65)" class="mri-hover">
++      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <circle cx="30" cy="40" r="16" fill="#0284c7"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">1</text>
++      <text class="mri-label" x="60" y="26">Alignment &amp; Precession in B₀</text>
++      <text class="mri-sub" x="60" y="43">In plain words: hydrogen protons behave like tiny magnets and line up with the strong field.</text>
++      <text class="mri-eng" x="60" y="62">Engineering: a slight spin excess creates net magnetization M₀; spins precess at f₀.</text>
++    </g>
++    <g transform="translate(20,155)" class="mri-hover">
++      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <circle cx="30" cy="40" r="16" fill="#db2777"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">2</text>
++      <text class="mri-label" x="60" y="26">RF Excitation at Resonance</text>
++      <text class="mri-sub" x="60" y="43">In plain words: a radio pulse at exactly the right pitch tips the tiny magnets sideways.</text>
++      <text class="mri-eng" x="60" y="62">Engineering: B₁ at f₀ = (γ/2π)B₀ rotates M by the selected flip angle.</text>
++    </g>
++    <g transform="translate(20,245)" class="mri-hover">
++      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <circle cx="30" cy="40" r="16" fill="#059669"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">3</text>
++      <text class="mri-label" x="60" y="26">Spatial Encoding with Gradients</text>
++      <text class="mri-sub" x="60" y="43">In plain words: small magnetic slopes give each location a signal pitch and timing code.</text>
++      <text class="mri-eng" x="60" y="62">Engineering: Gz selects a slice; Gy phase-encodes; Gx frequency-encodes.</text>
++    </g>
++    <g transform="translate(20,335)" class="mri-hover">
++      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <circle cx="30" cy="40" r="16" fill="#d97706"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">4</text>
++      <text class="mri-label" x="60" y="26">Relaxation &amp; Echo Capture</text>
++      <text class="mri-sub" x="60" y="43">In plain words: protons settle back at tissue-dependent speeds and broadcast faint radio echoes.</text>
++      <text class="mri-eng" x="60" y="62">Engineering: T1 recovery and T2 decay shape the FID/echo induced in receive coils.</text>
++    </g>
++    <g transform="translate(20,425)" class="mri-hover">
++      <rect x="0" y="0" width="630" height="80" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <circle cx="30" cy="40" r="16" fill="#9333ea"/><text x="30" y="45" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">5</text>
++      <text class="mri-label" x="60" y="26">K-Space &amp; Fourier Reconstruction</text>
++      <text class="mri-sub" x="60" y="43">In plain words: the computer decodes all the coded echoes and turns them into detailed pictures.</text>
++      <text class="mri-eng" x="60" y="62">Engineering: samples fill k-space; inverse FFT converts spatial frequencies to pixels.</text>
++    </g>
++  </g>
++
++  <path d="M 1035 615 L 1035 630" class="mri-data" fill="none"/>
++
++  <!-- RIGHT BOTTOM: PHYSICS -->
++  <g transform="translate(700,630)">
++    <rect x="0" y="0" width="670" height="300" fill="#0f172a" fill-opacity="0.88" stroke="#1e293b" stroke-width="2" rx="12"/>
++    <text class="mri-head" x="20" y="28">3. KEY PHYSICS IN FOUR FORMULAS</text>
++
++    <g transform="translate(20,45)" class="mri-hover">
++      <rect x="0" y="0" width="305" height="110" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <text class="mri-label" x="15" y="22">Larmor Frequency</text>
++      <text class="mri-math" x="15" y="48" font-size="16">f₀ = (γ/2π) · B₀</text>
++      <text class="mri-sub" x="15" y="68">For hydrogen, γ/2π = 42.58 MHz/T</text>
++      <text class="mri-eng" x="15" y="86">At 3.0 T: f₀ ≈ 127.7 MHz</text>
++      <text class="mri-sub" x="15" y="101">Stronger field → faster precession</text>
++    </g>
++
++    <g transform="translate(345,45)" class="mri-hover">
++      <rect x="0" y="0" width="305" height="110" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <text class="mri-label" x="15" y="22">T1 / T2 Relaxation</text>
++      <text class="mri-math" x="15" y="44" font-size="12">Mz(t) = M₀(1 − e^(−t/T1))</text>
++      <text class="mri-math" x="15" y="62" font-size="12">Mxy(t) = Mxy(0)e^(−t/T2)</text>
++      <text class="mri-sub" x="15" y="81">T1: recovery along B₀</text>
++      <text class="mri-eng" x="15" y="97">T2: transverse signal fading</text>
++    </g>
++
++    <g transform="translate(20,168)" class="mri-hover">
++      <rect x="0" y="0" width="305" height="115" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <text class="mri-label" x="15" y="22">Gradient Spatial Encoding</text>
++      <text class="mri-math" x="15" y="46" font-size="14">B(r) = B₀ + G·r</text>
++      <text class="mri-math" x="15" y="66" font-size="12">Δz = Δf / [(γ/2π)Gz]</text>
++      <text class="mri-sub" x="15" y="86">Position changes local field and frequency</text>
++      <text class="mri-eng" x="15" y="102">Bandwidth + Gz set slice thickness Δz</text>
++    </g>
++
++    <g transform="translate(345,168)" class="mri-hover">
++      <rect x="0" y="0" width="305" height="115" rx="8" fill="#1e293b" stroke="#334155" class="mri-card"/>
++      <text class="mri-label" x="15" y="22">K-Space to Image</text>
++      <text class="mri-math" x="15" y="46" font-size="13">Image = 2D IFFT { S(kx, ky) }</text>
++      <text class="mri-sub" x="15" y="68">kx grows while Gx is on; ky steps with Gy</text>
++      <text class="mri-sub" x="15" y="84">Centre of k-space: contrast; edges: detail</text>
++      <text class="mri-eng" x="15" y="101">Output: 2D slices or a 3D volume</text>
++    </g>
++  </g>
++
++  <g transform="translate(30,962)">
++    <text x="0" y="0" font-size="11" fill="#64748b">Biosynex Atlas educational diagram — simplified; real MRI systems and pulse sequences vary.</text>
++    <text x="1010" y="0" font-size="11" fill="#64748b">Self-hosted animated SVG</text>
++  </g>
++</svg>
+diff --git a/src/data/equipment.ts b/src/data/equipment.ts
+index 9f2dbe9..5ec85a2 100644
+--- a/src/data/equipment.ts
++++ b/src/data/equipment.ts
+@@ -14,8 +14,8 @@ export type Category = (typeof categories)[number];
+ 
+ export const categoryInfo: Record<Category, { examples: string; purpose: string; risk: string }> = {
+   "Diagnostic Imaging": {
+-    examples: "MRI, CT, Diagnostic Ultrasound, Digital X-Ray",
+-    purpose: "Non-invasive visualisation of anatomical structures and physiological processes.",
++    examples: "MRI, CT, PET, Diagnostic Ultrasound, Digital X-Ray",
++    purpose: "Creating pictures and measurements of internal structures and function without surgery, to help find, diagnose and monitor disease.",
+     risk: "Medium to High",
+   },
+   "Life Support & Critical Care": {
+@@ -64,38 +64,79 @@ export type Device = {
+ export const devices: Device[] = [
+   {
+     slug: "mri-scanner",
+-    name: "MRI Scanner",
++    name: "Magnetic Resonance Imaging (MRI) Scanner",
+     category: "Diagnostic Imaging",
+-    risk: "Medium to High — the magnet is very strong, so loose metal objects and some implants can be dangerous near it",
+-    summary: "Uses a powerful magnet and radio waves to make detailed pictures of soft tissues — such as the brain, muscles, and organs — without X-ray radiation.",
+-    embedUrl: "",
++    risk: "Moderate to High safety control — MRI uses no X-ray (ionising) radiation, but the magnet is always on and can pull ferromagnetic metal, disturb implants or pumps, cause RF heating, and make loud gradient noise. Careful screening is essential.",
++    summary: "A diagnostic imaging machine that uses a very strong magnet, radiofrequency (radio-wave) pulses, gradient coils, and a computer to create detailed 2D and 3D pictures of soft tissues, organs, joints, and blood vessels without X-ray (ionising) radiation.",
++    embedUrl: "https://sketchfab.com/models/308304dd1771433fb5f37fe9132bb1e7/embed?autostart=1&camera=0",
++    posterUrl: "https://media.sketchfab.com/models/308304dd1771433fb5f37fe9132bb1e7/thumbnails/c3f7a614b7504216b77fe1659ddd5b86/12183cc5b61146ae9a9e0252b4bf0e39.jpeg",
++    posterCredit: "Plain preview image from the Sketchfab model: Magnetic resonance imaging (MRI) by SmartTek Solutions",
++    posterCreditUrl: "https://sketchfab.com/3d-models/magnetic-resonance-imaging-mri-308304dd1771433fb5f37fe9132bb1e7",
++    posterFit: "cover",
++    modelCredit: "3D model: Magnetic resonance imaging (MRI) by SmartTek Solutions on Sketchfab",
++    modelCreditUrl: "https://sketchfab.com/3d-models/magnetic-resonance-imaging-mri-308304dd1771433fb5f37fe9132bb1e7",
+     workingPrinciples: [
+-      "A very strong magnet (called B0, usually 1.5 T or 3.0 T) lines up tiny hydrogen atoms in the body so they spin together. The speed of that spin is called the Larmor frequency.",
+-      "A short radio-wave pulse, tuned to that exact spin speed, knocks the atoms sideways. This is called excitation.",
+-      "As the atoms settle back, they give off faint radio signals. Different tissues settle at different speeds (called T1 and T2 times), and that difference creates the contrast in the picture.",
+-      "Extra coils (gradient coils) change the magnetic field slightly along the X, Y, and Z directions, so the machine can pinpoint where each signal came from. A computer then builds the image using a maths method called the Fast Fourier Transform (FFT).",
++      "Alignment and precession in B0: The body contains abundant hydrogen nuclei (protons), mostly in water and fat. Each proton behaves like a tiny magnet. The powerful main field (B0, commonly 1.5 T or 3 T) makes a slight excess of protons line up with the field and wobble, or precess, at the Larmor frequency: f = (γ/2π)B0. At 3 T this is about 127.7 MHz.",
++      "Radiofrequency excitation: A transmit coil sends a short radiofrequency pulse (B1) tuned exactly to that Larmor frequency. Because the frequency matches, energy is absorbed efficiently and the combined magnetization is tipped by a controlled flip angle. Pulses tuned to the wrong frequency have little effect — this frequency matching is the 'resonance' in MRI.",
++      "Gradient spatial encoding: Three gradient coils (Gx, Gy and Gz) briefly make the magnetic field stronger or weaker in a controlled direction, so protons at different positions acquire different frequencies and phases. In a typical 2D sequence, one gradient helps select a slice, another gives a phase code, and another gives a frequency code during readout. This gives every location a mathematical 'address'.",
++      "Relaxation and echo capture: When the RF pulse stops, protons gradually return towards alignment (T1 recovery) while their sideways magnetization fades (T2 decay). Fat, water, muscle, cerebrospinal fluid and diseased tissue relax differently. The changing magnetization induces tiny electrical signals (free induction decay or echoes) in receive coils placed close to the body.",
++      "Digitization and image reconstruction: The pulse sequence is repeated with many gradient combinations. Low-noise amplifiers boost the faint signals, filters clean them, and analogue-to-digital converters store the samples in a data map called k-space. The reconstruction computer applies Fourier-transform maths (FFT) to convert those coded signals into slices or a 3D volume. Different pulse sequences emphasize anatomy, fluid, fat, blood flow, diffusion or function.",
+     ],
+     clinicalUses: [
+-      "Scanning the brain and spinal cord",
+-      "Checking muscles, bones, and joints",
+-      "Examining the heart and the organs in the abdomen (belly)",
++      "Brain and spine: Evaluating brain and spinal tumours, aneurysms, stroke and bleeding, infection, developmental problems, multiple sclerosis and other demyelinating disease, spinal cord compression, and pinched or injured nerves.",
++      "Heart and body organs: Assessing heart chambers, valves, congenital heart disease, reduced blood flow and heart-muscle damage; examining liver and bile ducts, kidneys, spleen, pancreas and abdominal or pelvic masses; and staging or monitoring some cancers and inflammatory bowel disease.",
++      "Muscles, bones and joints: Investigating ligament, tendon, cartilage and muscle injuries; joint disorders; bone and soft-tissue tumours or infection; and spinal disc disease. MRI is especially valued where soft-tissue detail matters more than the cortical-bone detail shown well by CT.",
++      "Specialised examinations: Magnetic resonance angiography (MRA) for narrowed, blocked or weakened blood vessels; breast MRI in selected screening and diagnostic settings; prostate and pelvic imaging; functional MRI for brain activity studies; and diffusion, perfusion or spectroscopy techniques where available.",
+     ],
+     components: [
+-      { name: "Main Superconducting Magnet", detail: "Coils of niobium-titanium wire kept extremely cold in liquid helium (about 4.2 K, roughly −269°C) so they carry electricity with no resistance and keep the magnetic field strong and steady." },
+-      { name: "Gradient Coil Assembly", detail: "Three coils — for the X, Y, and Z directions — that pinpoint where each signal comes from: choosing the slice to image and encoding its position." },
+-      { name: "RF Coils", detail: "Antennas placed close to the body. They send out the radio-wave pulses and listen for the faint signals (echoes) coming back." },
+-      { name: "Cryogenic Cooling System", detail: "The cooling equipment — helium containers (dewars), cold-heads, and compressors — that keeps the magnet cold and prevents a sudden shutdown called a quench." },
+-      { name: "Image Reconstruction Processor", detail: "The computer that turns the raw signal data (called k-space) into 2D and 3D pictures using FFT maths." },
++      { name: "Superconducting Main Magnet (B0)", detail: "Thousands of turns of niobium-titanium/copper wire carry current with virtually no resistance when kept near absolute zero, producing a strong and stable magnetic field. Most clinical scanners operate at 1.5 T or 3 T, while 7 T systems are specialised. For scale, 1 T equals 10,000 gauss; a 3 T scanner is roughly 60,000 times stronger than Earth's magnetic field. The complete magnet assembly can weigh several tonnes and is normally at field all the time." },
++      { name: "Cryogenic Cooling System & Cryostat", detail: "Liquid helium bathes the superconducting coils at about 4 K (about −269°C). A vacuum vessel, thermal shields, coldhead, compressor and chiller limit heat entry and helium boil-off. Modern systems minimise helium loss; a sudden loss of superconductivity is called a quench." },
++      { name: "Shim System", detail: "Passive ferromagnetic shims and active superconducting or resistive shim coils fine-tune the main field so it is as uniform (homogeneous) as possible over the imaging volume. Better uniformity means sharper images, more reliable fat suppression, and fewer distortions." },
++      { name: "Gradient Coils (Gx, Gy & Gz)", detail: "Three sets of powerful electromagnets inside the magnet produce controlled magnetic-field slopes along X, Y and Z. They switch in less than about a millisecond to encode position. Rapid switching makes the coils vibrate against the main field, causing MRI's familiar knocking and buzzing sounds." },
++      { name: "Gradient Amplifiers & Control Processor", detail: "Cabinet-sized amplifiers deliver precisely timed, high currents to the gradient coils. The sequence controller synchronises gradient waveforms with RF pulses and signal sampling, while monitoring limits for heating and peripheral nerve stimulation." },
++      { name: "RF Transmit System & Body Coil", detail: "An RF synthesizer/exciter creates a low-power signal at the Larmor frequency and a power amplifier strengthens it for the transmit (often built-in body) coil. Peak pulse power can reach many kilowatts, but pulses are brief; the system monitors specific absorption rate (SAR), a measure of RF energy deposited in tissue." },
++      { name: "Local & Phased-Array Receive Coils", detail: "Head, spine, knee, wrist, torso and other anatomy-specific coils contain arrays of small antenna elements placed close to the region being examined. Proximity increases signal-to-noise ratio, and combining several elements can also support faster parallel imaging." },
++      { name: "RF Receiver & Digitization Chain", detail: "Low-noise preamplifiers, often located at or near the receive coils, strengthen microvolt-level signals without adding much noise. Receiver electronics filter and demodulate the signal, then analogue-to-digital converters turn it into digital samples for k-space." },
++      { name: "Noise Suppression & Artifact Control", detail: "Filtering, receiver blanking, shielding, spike detection and correction software reduce electrical transients and unwanted interference that could appear as lines, ghosts or zipper artifacts in the image. Quality-control scans help detect problems early." },
++      { name: "Patient Table & Cradle", detail: "A non-magnetic, motorised table moves the patient smoothly into the bore and positions the body part at magnet isocenter with sub-millimetre to millimetre precision (model dependent). Some tabletops dock or detach for patient transfer, and positioning pads improve comfort and reduce movement." },
++      { name: "Laser Landmarking System", detail: "Low-power laser crosshairs project reference lines onto the patient or coil so the operator can align the anatomy of interest with scanner isocenter before the table moves into the magnet." },
++      { name: "Operator Console & Imaging Software", detail: "Workstations in the control room run scan protocols, display positioning images and reconstructed scans, and record patient and sequence information. The operator communicates with the patient through an intercom and observes them through the shielded window or camera system." },
++      { name: "Image Reconstruction Computer", detail: "High-performance processors (often including GPUs) turn raw k-space data into images using Fourier transforms and corrections for coil sensitivity, field imperfections and motion. Finished images are displayed, archived, and commonly sent to hospital PACS systems." },
++      { name: "Power Distribution & Equipment Cabinets", detail: "Electrical cabinets distribute regulated power to gradient amplifiers, RF amplifiers, computers, cooling equipment and controls. RF filters on cables entering the scan room prevent unwanted radio noise from being carried through the shield." },
++      { name: "RF Shielding (Faraday Cage)", detail: "Copper or other conductive shielding incorporated into the scan-room walls, door, floor, ceiling and window blocks outside radiofrequency interference and contains the scanner's RF pulses. It is separate from magnetic shielding used to limit the stray (fringe) magnetic field." },
++      { name: "Safety, Monitoring & Emergency Systems", detail: "Controlled-access zones, screening procedures, hearing protection, an emergency call bulb/button, intercom and patient observation reduce risk. Some suites add ferromagnetic-detection systems. A quench pipe safely vents helium gas outside; burst disks, relief valves, quench-protection circuits and an emergency magnet rundown are for trained personnel and genuine emergencies, not routine shutdown." },
+     ],
+     descriptions: [
+       {
+         heading: "Overview",
+-        body: "MRI uses a strong magnet and radio waves to make clear pictures of soft tissue — parts of the body such as the brain, muscles, and organs. The patient lies inside the magnet while radio-wave pulses nudge the hydrogen atoms in their body, and the machine listens to the tiny signals those atoms send back.",
++        body: "Magnetic Resonance Imaging (MRI) is a non-invasive way to look inside the body. Instead of taking a shadow picture with X-rays, it listens to how hydrogen protons in water and fat respond inside a strong magnetic field after carefully timed radiofrequency pulses. A computer converts those responses into highly detailed cross-sectional pictures that can be viewed in any plane or assembled into 3D views.\n\nMRI is especially good at separating soft tissues — for example grey matter from white matter in the brain, cartilage from ligament in a joint, or a tumour from nearby normal tissue. It uses no ionising radiation. That does not make it risk-free, however: the powerful magnet remains on, so every patient, staff member, device and loose object must be screened before entering the magnet room (ACR Zone IV).",
+       },
+       {
+-        heading: "Signal Path",
+-        body: "The round tunnel (bore) holds the superconducting magnet coils. Inside it sits the gradient coil assembly, and closest to the patient are the RF coils that send and receive signals. The signals pass through quiet amplifiers (pre-amplifiers), are converted into digital form, and finally reach the computer that builds the images.",
++        heading: "How a Scan Is Made, Step by Step",
++        body: "1. Screening and positioning: Staff check for implants, devices and metal fragments, help the patient onto the table, fit the appropriate receive coil and hearing protection, and use laser crosshairs to place the area of interest at scanner isocenter — the point where the magnetic field and gradients are best controlled.\n2. Proton alignment: As the table moves into the bore, the main field B0 makes a slight excess of hydrogen protons align and precess at the Larmor frequency. This creates a small net magnetization along the field.\n3. RF excitation: The transmit coil sends a short B1 pulse at exactly that frequency, tipping the magnetization by a chosen flip angle and creating a measurable sideways component.\n4. Position coding: Gradient coils switch rapidly in X, Y and Z. They select the slice and give each location a unique frequency/phase code while the scanner records the returning signal.\n5. Relaxation and signal capture: After excitation, T1 recovery and T2 decay proceed at rates influenced by tissue composition and the local microscopic environment. Receive coils detect the small changing signals; their timing and strength create contrast between tissues.\n6. Reconstruction: Steps 3–5 repeat until enough coded samples fill k-space. The reconstruction computer applies a Fourier transform to place signal contributions into pixels (or voxels in 3D), corrects errors, and displays the finished images for the radiologist or other clinician to interpret.",
+       },
++      {
++        heading: "Magnet Types & Scanner Designs",
++        body: "Superconducting electromagnets: The standard design for most 1.5 T and 3 T clinical scanners and stronger specialised systems. Liquid-helium cooling keeps the wire near 4 K so it carries a persistent current with virtually no electrical resistance. This gives a strong, stable and uniform field but requires cryogenics, shielding, a quench vent and careful siting.\nPermanent magnets: Made from permanently magnetised material, usually at lower field strength (often below 0.5 T). They need no cryogens and are commonly used in C-shaped open designs, but the assemblies can be very heavy and lower field can mean lower signal-to-noise ratio.\nResistive electromagnets: Conventional current-carrying coils that can be switched off. They generate substantial heat and consume power, provide lower field than most superconducting systems, and are now less common for whole-body clinical MRI.\nClosed-bore, open and upright designs: Conventional superconducting systems use a cylindrical bore and generally provide the strongest, most uniform field. Open scanners use separated magnet poles for easier access and less claustrophobia, commonly at lower field. Upright/positional systems can image a person sitting or standing where available.",
++      },
++      {
++        heading: "Patient Preparation & Safety",
++        body: "Before the scan: The MRI team asks about pacemakers and defibrillators, neurostimulators, cochlear implants, drug-infusion pumps, spinal cord stimulators, shunts, aneurysm clips or coils, stents and filters, surgical hardware, shrapnel or metal in the eye, and devices worn on the body such as continuous glucose monitors and insulin pumps. Jewellery, watches, hair accessories, removable dental work and other metal items are removed as instructed. Many modern implants are 'MR Conditional', meaning they may be scanned only under defined conditions — never assume a device is safe.\n\nDuring the scan: The patient lies on a padded table, often with a coil around the area being examined. Scans commonly take about 30–60 minutes, but timing varies. Gradient coils make loud knocking or buzzing, so earplugs or headphones are provided. The patient should lie as still as possible and can communicate through an intercom and emergency call button or squeeze bulb. Some examinations use an intravenous contrast agent when a clinician judges it appropriate.\n\nWhy screening matters: Ferromagnetic objects can be pulled violently toward the magnet (projectile effect). Magnetic fields and gradient/RF energy can move, heat, reset or interfere with some implants and external devices, and leads or loops on the skin can contribute to burns. These risks are controlled by trained staff, controlled-access zones, checklists and device-specific guidance.",
++      },
++      {
++        heading: "Modern Innovations",
++        body: "Quantitative MRI (qMRI): Instead of only producing pictures where brightness depends on scanner settings, qMRI aims to measure tissue properties such as T1, T2, fat fraction, stiffness or flow in repeatable units. NIST-supported MRI phantoms — test objects containing known materials — help sites calibrate scanners, compare results between hospitals and check whether a measured change is real.\nPortable low-field MRI: Smaller systems, particularly for bedside brain imaging, reduce siting demands and may improve access for critically ill patients or lower-resource settings. Lower field produces less signal, so sensitive coils, efficient sequences and computational or AI-based image enhancement are used to improve quality; they complement rather than replace conventional high-field scanners for many examinations.\nFaster and smarter imaging: Parallel imaging, compressed sensing, simultaneous multi-slice acquisition and AI reconstruction can shorten scans or reduce noise. Quieter gradient waveforms, wider/shorter bores and in-bore entertainment also improve comfort. These advances still depend on validation so image enhancement does not invent or hide clinically important detail.",
++      },
++      {
++        heading: "Category Profile",
++        body: "Main job: To create detailed 2D and 3D diagnostic pictures and, increasingly, quantitative measurements of internal organs, soft tissues, joints, blood vessels and function without surgery or ionising radiation.\nRisk level: Moderate to High safety control. The hazard is not X-ray exposure; it is the always-on static magnetic field, time-varying gradient fields, RF energy deposition, acoustic noise and interactions with metals or implanted/worn devices. Controlled access and screening are mandatory.\nRelated devices: Computed Tomography (CT), Positron Emission Tomography (PET), Diagnostic Ultrasound, Digital X-Ray and Magnetic Resonance Angiography (MRA) systems/sequences.",
++      },
++    ],
++    references: [
++      { title: "How Does an MRI Machine Work?", url: "https://www.nist.gov/how-do-you-measure-it/how-does-mri-machine-work", source: "National Institute of Standards and Technology (NIST)" },
++      { title: "MR Machine — FRCR Physics Notes", url: "https://www.radiologycafe.com/frcr-physics-notes/mr-imaging/mr-machine/", source: "Radiology Cafe" },
++      { title: "MRI Scanner Components: How MRI Machines Work & Key Parts", url: "https://www.medicalimagingsource.com/mri-scanner-components-explained", source: "Medical Imaging Source" },
++      { title: "Magnetic Resonance Imaging (MRI): Overview, Procedure & Results", url: "https://my.clevelandclinic.org/health/diagnostics/4876-magnetic-resonance-imaging-mri", source: "Cleveland Clinic" },
+     ],
+   },
+   {
+@@ -315,6 +356,43 @@ export const resources: Resource[] = [
+     topics: "Imaging architectures, therapeutic devices, signal processing",
+     note: "Review papers on modern medical technologies.",
+   },
++  // MRI Scanner references
++  {
++    title: "How Does an MRI Machine Work?",
++    type: "Article",
++    url: "https://www.nist.gov/how-do-you-measure-it/how-does-mri-machine-work",
++    source: "National Institute of Standards and Technology (NIST)",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI, proton precession, Larmor frequency, gradients, quantitative MRI, portable MRI",
++    note: "Plain-language explanation from the United States national metrology institute, including quantitative MRI and low-field innovation.",
++  },
++  {
++    title: "MR Machine — FRCR Physics Notes",
++    type: "Article",
++    url: "https://www.radiologycafe.com/frcr-physics-notes/mr-imaging/mr-machine/",
++    source: "Radiology Cafe",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI, superconducting magnet, helium cooling, shim coils, gradient coils, RF coils",
++    note: "Concise hardware notes for radiology physics, including magnet types and the origin of gradient noise.",
++  },
++  {
++    title: "MRI Scanner Components: How MRI Machines Work & Key Parts",
++    type: "Article",
++    url: "https://www.medicalimagingsource.com/mri-scanner-components-explained",
++    source: "Medical Imaging Source",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI components, cryostat, quench system, patient table, RF shielding, safety systems",
++    note: "Component-by-component guide to the magnet, cryogenic, RF, computing, shielding and emergency systems.",
++  },
++  {
++    title: "Magnetic Resonance Imaging (MRI): Overview, Procedure & Results",
++    type: "Article",
++    url: "https://my.clevelandclinic.org/health/diagnostics/4876-magnetic-resonance-imaging-mri",
++    source: "Cleveland Clinic",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI uses, patient preparation, implant screening, procedure, safety",
++    note: "Patient-friendly guide to why MRI is used, how to prepare, and why implants and metal objects must be disclosed.",
++  },
+   // Mechanical Ventilator references
+   {
+     title: "Basic components of a mechanical ventilator",
+diff --git a/src/routes/equipment.$slug.tsx b/src/routes/equipment.$slug.tsx
+index f073e40..3706ed3 100644
+--- a/src/routes/equipment.$slug.tsx
++++ b/src/routes/equipment.$slug.tsx
+@@ -3,6 +3,7 @@ import { SiteShell } from "@/components/SiteShell";
+ import { ViewerFrame } from "@/components/ViewerFrame";
+ import { categories, categoryInfo, devices, getDevice, resources } from "@/data/equipment";
+ import ventilatorDiagramUrl from "@/assets/ventilator-working-principle.svg?url";
++import mriDiagramSvg from "@/assets/mri-working-principle.svg?raw";
+ 
+ export const Route = createFileRoute("/equipment/$slug")({
+   loader: ({ params }) => {
+@@ -86,6 +87,24 @@ function DevicePage() {
+               <figcaption className="mt-3 text-sm text-muted-foreground">How air travels through the ventilator, step by step. Blue = fresh air in, orange = used air out, purple = sensor messages back to the computer.</figcaption>
+             </figure>
+           )}
++          {device.slug === "mri-scanner" && (
++            <figure className="mt-6 rounded-xl border border-border bg-card p-4">
++              <div className="overflow-x-auto rounded-lg">
++                <div
++                  role="img"
++                  aria-label="Animated diagram showing MRI scanner layers, proton alignment, radiofrequency excitation, gradient encoding, relaxation and Fourier reconstruction"
++                  className="min-w-[820px] lg:min-w-0 [&_svg]:block [&_svg]:h-auto [&_svg]:w-full"
++                  dangerouslySetInnerHTML={{ __html: mriDiagramSvg }}
++                />
++              </div>
++              <figcaption className="mt-3 text-sm text-muted-foreground">
++                Animated MRI working-principle diagram. Blue shows liquid-helium cooling, pink shows the radiofrequency
++                pulse travelling in, green shows gradient position coding, gold shows the returning tissue signal, and
++                purple shows data moving towards reconstruction. On small screens, scroll sideways to read the labels.
++                Biosynex Atlas self-hosted educational SVG, redrawn from the supplied schematic and the cited references.
++              </figcaption>
++            </figure>
++          )}
+           <div className="mt-8 space-y-6">
+             {device.descriptions.map((s) => (
+               <article key={s.heading} className="rounded-xl border border-border bg-card p-6">
