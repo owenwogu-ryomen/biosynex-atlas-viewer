@@ -1,0 +1,55 @@
+diff --git a/src/data/equipment.ts b/src/data/equipment.ts
+index c42477d..b44aeeb 100644
+--- a/src/data/equipment.ts
++++ b/src/data/equipment.ts
+@@ -467,4 +467,50 @@ export const resources: Resource[] = [
+     topics: "Mechanical Ventilator, flow sensors, pressure transducers",
+     note: "Engineering breakdown of ventilator components and sensors.",
+   },
++  // Cited media and 3D model sources used on equipment pages
++  {
++    title: "Essential parts of a modern MRI machine (poster image source)",
++    type: "Other",
++    url: "https://www.researchgate.net/figure/Essential-parts-of-a-modern-MRI-machine-12_fig82_241802473",
++    source: "ResearchGate",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI Scanner, cutaway illustration, cited media source",
++    note: "Scientific figure page for the MRI cutaway illustration used as the MRI page's click-to-load viewer poster (accessed 21 Oct 2026).",
++  },
++  {
++    title: "HDYMI MRI animation (GIF source)",
++    type: "Other",
++    url: "https://www.nist.gov/image/hdymi-mri-animation",
++    source: "N. Hanacek / NIST",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI Scanner, animation, cited media source",
++    note: "Source page for the animated NIST GIF shown above the MRI 3D viewport.",
++  },
++  {
++    title: "Magnetic resonance imaging (MRI) — 3D model",
++    type: "Other",
++    url: "https://sketchfab.com/3d-models/magnetic-resonance-imaging-mri-308304dd1771433fb5f37fe9132bb1e7",
++    source: "SmartTek Solutions / Sketchfab",
++    categories: ["Diagnostic Imaging"],
++    topics: "MRI Scanner, interactive 3D model, cited model source",
++    note: "Sketchfab model embedded on the MRI Scanner page after the visitor selects View 3D model.",
++  },
++  {
++    title: "Mechanical ventilation (article and poster illustration source)",
++    type: "Article",
++    url: "https://www.britannica.com/science/mechanical-ventilation",
++    source: "Encyclopaedia Britannica",
++    categories: ["Life Support & Critical Care"],
++    topics: "Mechanical Ventilator, parts and operation illustration, cited media source",
++    note: "Britannica article containing the mechanical ventilator parts-and-operation illustration used as the ventilator page poster.",
++  },
++  {
++    title: "Medical Ventilator — 3D model",
++    type: "Other",
++    url: "https://sketchfab.com/3d-models/medical-ventilator-a03a99fab9314aab96fd41ec69acf1a3",
++    source: "lazarys / Sketchfab",
++    categories: ["Life Support & Critical Care"],
++    topics: "Mechanical Ventilator, interactive 3D model, cited model source",
++    note: "Sketchfab model embedded on the Mechanical Ventilator page after the visitor selects View 3D model.",
++  },
+ ];
