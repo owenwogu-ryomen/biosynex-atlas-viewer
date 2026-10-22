@@ -22,7 +22,7 @@ fi
 git config user.name "owenwogu-ryomen"
 git config user.email "228959905+owenwogu-ryomen@users.noreply.github.com"
 git add -A
-git commit -m "Add optional star-rating feedback prompt" -m "Add a dismissible feedback card that appears after a visitor scrolls about 70% of a page (or anytime via the footer Give feedback button). Visitors choose 1–5 stars, then answer a rating-aware improvement question with an optional comment and optional reply email. Submission opens a prefilled email to the site contact; the browser stores only dismissal/submission timestamps so the prompt does not keep nagging."
+git commit -m "Add optional star-rating feedback prompt" -m "Add a dismissible feedback card that appears after a visitor scrolls about 70% of a page (or anytime via the footer Give feedback button). Visitors choose 1–5 stars, then answer a rating-aware improvement question with an optional comment and optional reply email. Submission opens a prefilled email to the site contact. Dismissal or submission suppresses the automatic prompt for at most 2 days on that browser, after which it may appear again."
 git push origin main
 
 echo "Done. Watch the deploy here: https://github.com/owenwogu-ryomen/biosynex-atlas-viewer-clone/actions"

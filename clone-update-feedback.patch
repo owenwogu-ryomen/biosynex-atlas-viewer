@@ -1,9 +1,9 @@
 diff --git a/src/components/FeedbackWidget.tsx b/src/components/FeedbackWidget.tsx
 new file mode 100644
-index 0000000..e3c565f
+index 0000000..82023dd
 --- /dev/null
 +++ b/src/components/FeedbackWidget.tsx
-@@ -0,0 +1,283 @@
+@@ -0,0 +1,288 @@
 +import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 +
 +const FEEDBACK_EMAIL = "owenwogu651@gmail.com";
@@ -11,6 +11,7 @@ index 0000000..e3c565f
 +const SUBMITTED_KEY = "biosynex-feedback-submitted-at";
 +const REMIND_AFTER_KEY = "biosynex-feedback-remind-after";
 +const DAY_MS = 24 * 60 * 60 * 1000;
++const MAX_SUPPRESSION_MS = 2 * DAY_MS;
 +const RATING_LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
 +
 +export function openFeedback() {
@@ -19,9 +20,12 @@ index 0000000..e3c565f
 +
 +function canAutoShowFeedback() {
 +  try {
-+    if (window.localStorage.getItem(SUBMITTED_KEY)) return false;
++    const now = Date.now();
++    const submittedAt = Number(window.localStorage.getItem(SUBMITTED_KEY));
++    if (Number.isFinite(submittedAt) && now - submittedAt < MAX_SUPPRESSION_MS) return false;
++
 +    const remindAfter = Number(window.localStorage.getItem(REMIND_AFTER_KEY));
-+    return !Number.isFinite(remindAfter) || remindAfter <= Date.now();
++    return !Number.isFinite(remindAfter) || remindAfter <= now;
 +  } catch {
 +    return true;
 +  }
@@ -29,7 +33,8 @@ index 0000000..e3c565f
 +
 +function rememberDismissal(days: number) {
 +  try {
-+    window.localStorage.setItem(REMIND_AFTER_KEY, String(Date.now() + days * DAY_MS));
++    const cappedMs = Math.min(days * DAY_MS, MAX_SUPPRESSION_MS);
++    window.localStorage.setItem(REMIND_AFTER_KEY, String(Date.now() + cappedMs));
 +  } catch {
 +    // The prompt can still close for this page view if storage is unavailable.
 +  }
@@ -102,7 +107,7 @@ index 0000000..e3c565f
 +    return () => window.clearTimeout(timer);
 +  }, [isOpen]);
 +
-+  const dismiss = useCallback((days = 30) => {
++  const dismiss = useCallback((days = 2) => {
 +    rememberDismissal(days);
 +    setIsOpen(false);
 +  }, []);
@@ -110,7 +115,7 @@ index 0000000..e3c565f
 +  useEffect(() => {
 +    if (!isOpen) return;
 +    const handleKeyDown = (event: KeyboardEvent) => {
-+      if (event.key === "Escape") dismiss(14);
++      if (event.key === "Escape") dismiss(2);
 +    };
 +    window.addEventListener("keydown", handleKeyDown);
 +    return () => window.removeEventListener("keydown", handleKeyDown);
@@ -168,7 +173,7 @@ index 0000000..e3c565f
 +      <button
 +        ref={closeButtonRef}
 +        type="button"
-+        onClick={() => dismiss(14)}
++        onClick={() => dismiss(2)}
 +        aria-label="Dismiss feedback prompt"
 +        className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
 +      >
@@ -268,7 +273,7 @@ index 0000000..e3c565f
 +          <div className="mt-5 flex flex-wrap items-center gap-2">
 +            <button
 +              type="button"
-+              onClick={() => dismiss(30)}
++              onClick={() => dismiss(2)}
 +              className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
 +            >
 +              Not now
