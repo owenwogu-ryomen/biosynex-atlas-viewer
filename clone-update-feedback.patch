@@ -1,0 +1,318 @@
+diff --git a/src/components/FeedbackWidget.tsx b/src/components/FeedbackWidget.tsx
+new file mode 100644
+index 0000000..e3c565f
+--- /dev/null
++++ b/src/components/FeedbackWidget.tsx
+@@ -0,0 +1,283 @@
++import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from "react";
++
++const FEEDBACK_EMAIL = "owenwogu651@gmail.com";
++const OPEN_FEEDBACK_EVENT = "biosynex:open-feedback";
++const SUBMITTED_KEY = "biosynex-feedback-submitted-at";
++const REMIND_AFTER_KEY = "biosynex-feedback-remind-after";
++const DAY_MS = 24 * 60 * 60 * 1000;
++const RATING_LABELS = ["", "Poor", "Fair", "Good", "Very good", "Excellent"];
++
++export function openFeedback() {
++  window.dispatchEvent(new Event(OPEN_FEEDBACK_EVENT));
++}
++
++function canAutoShowFeedback() {
++  try {
++    if (window.localStorage.getItem(SUBMITTED_KEY)) return false;
++    const remindAfter = Number(window.localStorage.getItem(REMIND_AFTER_KEY));
++    return !Number.isFinite(remindAfter) || remindAfter <= Date.now();
++  } catch {
++    return true;
++  }
++}
++
++function rememberDismissal(days: number) {
++  try {
++    window.localStorage.setItem(REMIND_AFTER_KEY, String(Date.now() + days * DAY_MS));
++  } catch {
++    // The prompt can still close for this page view if storage is unavailable.
++  }
++}
++
++function rememberSubmission() {
++  try {
++    window.localStorage.setItem(SUBMITTED_KEY, String(Date.now()));
++    window.localStorage.removeItem(REMIND_AFTER_KEY);
++  } catch {
++    // Ignore storage errors; submission through the visitor's email app can still continue.
++  }
++}
++
++export function FeedbackWidget() {
++  const [isOpen, setIsOpen] = useState(false);
++  const [rating, setRating] = useState(0);
++  const [hoverRating, setHoverRating] = useState(0);
++  const [comment, setComment] = useState("");
++  const [email, setEmail] = useState("");
++  const [pageUrl, setPageUrl] = useState("");
++  const [isSubmitted, setIsSubmitted] = useState(false);
++  const [copied, setCopied] = useState(false);
++  const autoShownRef = useRef(false);
++  const openedManuallyRef = useRef(false);
++  const dialogRef = useRef<HTMLElement>(null);
++  const closeButtonRef = useRef<HTMLButtonElement>(null);
++
++  const openWidget = useCallback((manual = false) => {
++    openedManuallyRef.current = manual;
++    setPageUrl(window.location.href);
++    if (manual) {
++      setIsSubmitted(false);
++      setCopied(false);
++    }
++    setIsOpen(true);
++  }, []);
++
++  useEffect(() => {
++    const handleManualOpen = () => openWidget(true);
++    const maybeAutoShow = () => {
++      if (autoShownRef.current || !canAutoShowFeedback()) return;
++
++      const documentHeight = document.documentElement.scrollHeight;
++      const maxScroll = documentHeight - window.innerHeight;
++      if (maxScroll <= 0) return;
++
++      const progress = window.scrollY / maxScroll;
++      if (progress >= 0.7) {
++        autoShownRef.current = true;
++        openWidget(false);
++      }
++    };
++
++    window.addEventListener(OPEN_FEEDBACK_EVENT, handleManualOpen);
++    window.addEventListener("scroll", maybeAutoShow, { passive: true });
++    window.addEventListener("resize", maybeAutoShow);
++    maybeAutoShow();
++
++    return () => {
++      window.removeEventListener(OPEN_FEEDBACK_EVENT, handleManualOpen);
++      window.removeEventListener("scroll", maybeAutoShow);
++      window.removeEventListener("resize", maybeAutoShow);
++    };
++  }, [openWidget]);
++
++  useEffect(() => {
++    if (!isOpen || !openedManuallyRef.current) return;
++    const timer = window.setTimeout(() => closeButtonRef.current?.focus({ preventScroll: true }), 50);
++    return () => window.clearTimeout(timer);
++  }, [isOpen]);
++
++  const dismiss = useCallback((days = 30) => {
++    rememberDismissal(days);
++    setIsOpen(false);
++  }, []);
++
++  useEffect(() => {
++    if (!isOpen) return;
++    const handleKeyDown = (event: KeyboardEvent) => {
++      if (event.key === "Escape") dismiss(14);
++    };
++    window.addEventListener("keydown", handleKeyDown);
++    return () => window.removeEventListener("keydown", handleKeyDown);
++  }, [dismiss, isOpen]);
++
++  const displayedRating = hoverRating || rating;
++  const question = rating > 0 && rating <= 3
++    ? "What or where should we improve?"
++    : "What did you like, and where can we still improve?";
++
++  const feedbackText = useMemo(() => {
++    const lines = [
++      "Biosynex Atlas feedback",
++      `Rating: ${rating}/5${rating ? ` (${RATING_LABELS[rating]})` : ""}`,
++      `Page: ${pageUrl || "Not captured"}`,
++    ];
++
++    if (email.trim()) lines.push(`Visitor email (optional): ${email.trim()}`);
++    lines.push("", "Feedback:", comment.trim() || "(No written comment provided)");
++    return lines.join("\n");
++  }, [comment, email, pageUrl, rating]);
++
++  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
++    event.preventDefault();
++    if (!rating) return;
++
++    const subject = `Biosynex Atlas feedback — ${rating}/5`;
++    const mailto = `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(feedbackText)}`;
++
++    rememberSubmission();
++    setIsSubmitted(true);
++    setCopied(false);
++    window.location.href = mailto;
++  };
++
++  const copyFeedback = async () => {
++    try {
++      await navigator.clipboard.writeText(feedbackText);
++      setCopied(true);
++    } catch {
++      setCopied(false);
++    }
++  };
++
++  if (!isOpen) return null;
++
++  return (
++    <section
++      ref={dialogRef}
++      role="dialog"
++      aria-modal="false"
++      aria-labelledby="biosynex-feedback-title"
++      className="fixed bottom-4 right-4 z-50 max-h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] max-w-sm overflow-y-auto rounded-2xl border border-border bg-card p-5 shadow-2xl"
++    >
++      <button
++        ref={closeButtonRef}
++        type="button"
++        onClick={() => dismiss(14)}
++        aria-label="Dismiss feedback prompt"
++        className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
++      >
++        <span aria-hidden className="text-xl leading-none">×</span>
++      </button>
++
++      {isSubmitted ? (
++        <div className="pr-8">
++          <p className="font-mono text-xs uppercase tracking-widest text-primary">Feedback</p>
++          <h2 id="biosynex-feedback-title" className="mt-2 font-display text-2xl">Thank you!</h2>
++          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
++            Your email app should open with your feedback ready to send. If it did not open, copy the feedback and
++            email it to <a className="text-primary hover:underline" href={`mailto:${FEEDBACK_EMAIL}`}>{FEEDBACK_EMAIL}</a>.
++          </p>
++          <div className="mt-5 flex flex-wrap gap-2">
++            <button
++              type="button"
++              onClick={copyFeedback}
++              className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
++            >
++              {copied ? "Copied" : "Copy feedback"}
++            </button>
++            <button
++              type="button"
++              onClick={() => setIsOpen(false)}
++              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
++            >
++              Done
++            </button>
++          </div>
++        </div>
++      ) : (
++        <form onSubmit={handleSubmit} className="pr-8">
++          <p className="font-mono text-xs uppercase tracking-widest text-primary">Optional feedback</p>
++          <h2 id="biosynex-feedback-title" className="mt-2 font-display text-2xl">How was your visit?</h2>
++          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
++            Rate Biosynex Atlas and tell us what to improve. No account is needed, and you can skip this.
++          </p>
++
++          <div className="mt-4" role="radiogroup" aria-label="Rate Biosynex Atlas from one to five stars">
++            <div className="flex items-center gap-1" onMouseLeave={() => setHoverRating(0)}>
++              {[1, 2, 3, 4, 5].map((value) => (
++                <button
++                  key={value}
++                  type="button"
++                  role="radio"
++                  aria-checked={rating === value}
++                  aria-label={`${value} star${value === 1 ? "" : "s"} — ${RATING_LABELS[value]}`}
++                  onClick={() => setRating(value)}
++                  onMouseEnter={() => setHoverRating(value)}
++                  onFocus={() => setHoverRating(value)}
++                  onBlur={() => setHoverRating(0)}
++                  className={`flex h-11 w-11 items-center justify-center rounded-full text-4xl leading-none transition hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${value <= displayedRating ? "text-amber-400" : "text-muted-foreground"}`}
++                >
++                  <span aria-hidden>{value <= displayedRating ? "★" : "☆"}</span>
++                </button>
++              ))}
++            </div>
++            <p className="mt-1 min-h-5 text-xs text-muted-foreground" aria-live="polite">
++              {displayedRating ? `${displayedRating}/5 — ${RATING_LABELS[displayedRating]}` : "Choose a star rating"}
++            </p>
++          </div>
++
++          {rating > 0 && (
++            <div className="mt-3 space-y-3">
++              <div>
++                <label htmlFor="biosynex-feedback-comment" className="text-sm font-medium">{question}</label>
++                <textarea
++                  id="biosynex-feedback-comment"
++                  value={comment}
++                  onChange={(event) => setComment(event.target.value)}
++                  rows={4}
++                  maxLength={1000}
++                  placeholder="For example: which page was confusing, what loaded slowly, or which device should we add?"
++                  className="mt-2 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
++                />
++              </div>
++              <div>
++                <label htmlFor="biosynex-feedback-email" className="text-sm font-medium">Email <span className="font-normal text-muted-foreground">(optional, only if you want a reply)</span></label>
++                <input
++                  id="biosynex-feedback-email"
++                  type="email"
++                  autoComplete="email"
++                  value={email}
++                  onChange={(event) => setEmail(event.target.value)}
++                  placeholder="you@example.com"
++                  className="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary"
++                />
++              </div>
++              <p className="text-xs leading-relaxed text-muted-foreground">
++                “Send by email” opens your email app; nothing is sent until you press Send there. This browser only
++                remembers whether to show this prompt again.
++              </p>
++            </div>
++          )}
++
++          <div className="mt-5 flex flex-wrap items-center gap-2">
++            <button
++              type="button"
++              onClick={() => dismiss(30)}
++              className="rounded-full border border-border px-4 py-2 text-sm hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
++            >
++              Not now
++            </button>
++            {rating > 0 && (
++              <button
++                type="submit"
++                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
++              >
++                Send by email
++              </button>
++            )}
++          </div>
++        </form>
++      )}
++    </section>
++  );
++}
+diff --git a/src/components/SiteShell.tsx b/src/components/SiteShell.tsx
+index 01f004a..01926ed 100644
+--- a/src/components/SiteShell.tsx
++++ b/src/components/SiteShell.tsx
+@@ -1,5 +1,6 @@
+ import { Link } from "@tanstack/react-router";
+ import type { ReactNode } from "react";
++import { FeedbackWidget, openFeedback } from "./FeedbackWidget";
+ 
+ export function SiteShell({ children }: { children: ReactNode }) {
+   return (
+@@ -23,6 +24,9 @@ export function SiteShell({ children }: { children: ReactNode }) {
+             <div>
+               <p className="font-display">For more information, contact us</p>
+               <a href="mailto:owenwogu651@gmail.com" className="text-primary font-mono text-sm hover:underline">owenwogu651@gmail.com</a>
++              <button type="button" onClick={openFeedback} className="mt-3 block font-mono text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
++                Give feedback
++              </button>
+             </div>
+             <p className="text-muted-foreground text-sm font-mono">© Biosynex Atlas</p>
+           </div>
+@@ -38,6 +42,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
+           </div>
+         </div>
+       </footer>
++      <FeedbackWidget />
+     </div>
+   );
+ }
