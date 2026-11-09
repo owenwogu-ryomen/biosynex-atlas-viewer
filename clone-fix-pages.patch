@@ -1,0 +1,13 @@
+diff --git a/.github/workflows/deploy.yml b/.github/workflows/deploy.yml
+index a052a3c..e18e32f 100644
+--- a/.github/workflows/deploy.yml
++++ b/.github/workflows/deploy.yml
+@@ -5,6 +5,8 @@ on:
+     branches:
+       - main
+       - master
++  # Allow a manual redeploy from the Actions tab without a code change.
++  workflow_dispatch:
+ 
+ permissions:
+   contents: read
